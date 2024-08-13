@@ -1,20 +1,20 @@
-import { StatusBar } from 'expo-status-bar';
-import { Text, View, Button } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import styles from './styles';
+import HomeScreen from './screens/HomeScreen';
+import RegistrationScreen from './screens/RegistrationScreen';
+import LoginScreen from './screens/LoginScreen';
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <View style={ styles.container }>
-      <Text style={styles.title}>Bem-vindo(a) ao Papacapim!</Text>
-      <View>
-        <Button title=">">&gt;</Button>
-        <Text style={styles.colorWhite}>Entre aqui</Text>
-      </View>
-      <View>
-        <Button title=">">&gt;</Button>
-        <Text style={styles.colorWhite}>Novo por aqui? Crie uma conta.</Text>
-      </View>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer style={ styles.container }>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" options={{ title: "Tela inicial" }} component={HomeScreen} />
+        <Stack.Screen name="Login" options={{ title: "Login" }} component={LoginScreen} />
+        <Stack.Screen name="Registration" options={{ title: "Registro" }} component={RegistrationScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
