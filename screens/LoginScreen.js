@@ -32,6 +32,7 @@ export default function LoginScreen({ navigation }) {
       />
       <TouchableOpacity
         style={styles.button}
+        onPress={() => navigation.navigate('Feed')}
       >
         <Text
           style={styles.buttonText}
