@@ -1,11 +1,12 @@
 import {
+  Button,
   ScrollView,
   StyleSheet,
   View,
 } from 'react-native';
 import Post from '../components/Post';
 
-export default function FeedScreen() {
+export default function FeedScreen({ navigation }) {
   const staticData = {
     user: {
       name: 'John Doe',
@@ -21,6 +22,7 @@ export default function FeedScreen() {
 
   return (
     <ScrollView style={styles.page}>
+      <Button onPress={() => navigation.navigate('CreatePost')} title="Criar postagem">Criar postagem</Button>
       <Post post={staticData}></Post>
       <Post post={staticData}></Post>
       <Post post={staticData}></Post>
