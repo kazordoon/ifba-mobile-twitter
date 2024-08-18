@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native'
 
-const colors = {
+export const colors = {
   primaryBg: '#1DA1F2'
 }
 
