@@ -9,6 +9,7 @@ import React, { useState } from 'react';
 import { colors } from '../styles';
 
 export default function RegistrationScreen({ navigation }) {
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
@@ -16,6 +17,13 @@ export default function RegistrationScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <Text style={styles.label}>Registre sua conta</Text>
+      <TextInput
+        placeholder="Nome de usuário"
+        placeholderTextColor="rgba(52, 52, 52, 0.8)"
+        value={username}
+        onChangeText={setUsername}
+        style={styles.input}
+      />
       <TextInput
         placeholder="E-mail"
         placeholderTextColor="rgba(52, 52, 52, 0.8)"
