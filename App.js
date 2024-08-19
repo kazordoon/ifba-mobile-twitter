@@ -5,6 +5,7 @@ import HomeScreen from './screens/HomeScreen';
 import RegistrationScreen from './screens/RegistrationScreen';
 import LoginScreen from './screens/LoginScreen';
 import FeedScreen from './screens/FeedScreen';
+import UpdateUserDataScreen from './screens/UpdateUserDataScreen';
 import CreatePostScreen from './screens/CreatePostScreen';
 
 const Stack = createNativeStackNavigator();
@@ -18,6 +19,7 @@ export default function App() {
         <Stack.Screen name="Registration" options={{ title: "Registro" }} component={RegistrationScreen} />
         <Stack.Screen name="Feed" options={{ title: "Feed" }} component={FeedScreen} />
         <Stack.Screen name="CreatePost" options={{ title: "Criar post" }} component={CreatePostScreen} />
+        <Stack.Screen name="UpdateUserData" options={{ title: "Atualizar dados" }} component={UpdateUserDataScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
