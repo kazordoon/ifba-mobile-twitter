@@ -9,7 +9,7 @@ import {
   SafeAreaView
 } from 'react-native';
 
-export default function CreatePostScreen() {
+export default function CreatePostScreen({ navigation }) {
   const [text, setText] = useState('');
 
   return (
@@ -30,7 +30,7 @@ export default function CreatePostScreen() {
           />
         </View>
         <View style={styles.buttonContainer}>
-          <Pressable style={styles.button}>
+          <Pressable style={styles.button} onPress={() => navigation.navigate('Feed')}>
             <Text style={styles.buttonText}>Postar</Text>
           </Pressable>
         </View>
