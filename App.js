@@ -33,7 +33,7 @@ export default function App() {
           ),
           headerRight: () => (
             <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-              <EvilIcons name="close" size={28} color="black" />
+              <EvilIcons name="close" size={38} color="black" />
             </TouchableOpacity>
           )
           })} component={FeedScreen} /> 
