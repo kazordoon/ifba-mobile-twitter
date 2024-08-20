@@ -25,7 +25,6 @@ export default function App() {
 
         <Stack.Screen name="Feed" options={({ navigation }) => ({
           title: null,
-          headerBackVisible: false,
           headerLeft: () => (
             <Pressable onPress={() => navigation.navigate('UpdateUserData')}>
               <Image style={styles.userIcon} source={require('./assets/user.png')} />
