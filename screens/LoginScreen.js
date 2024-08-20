@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React, { useState } from 'react';
-import { colors } from '../styles';
+import commonStyles, { colors } from '../styles';
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('');
@@ -14,13 +14,13 @@ export default function LoginScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>Entre com sua conta</Text>
+      <Text style={commonStyles.title}>Entre com sua conta</Text>
       <TextInput
         placeholder="E-mail"
         placeholderTextColor="rgba(52, 52, 52, 0.8)"
         value={email}
         onChangeText={setEmail}
-        style={styles.input}
+        style={commonStyles.textInput}
       />
       <TextInput
       secureTextEntry={true}
@@ -28,14 +28,14 @@ export default function LoginScreen({ navigation }) {
         placeholderTextColor="rgba(52, 52, 52, 0.8)"
         value={password}
         onChangeText={setPassword}
-        style={styles.input}
+        style={commonStyles.textInput}
       />
       <TouchableOpacity
-        style={styles.button}
+        style={commonStyles.buttonBlack}
         onPress={() => navigation.navigate('Feed')}
       >
         <Text
-          style={styles.buttonText}
+          style={commonStyles.buttonBlackText}
         >
           Entrar
         </Text>
@@ -50,32 +50,5 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 24,
-  },
-  label: {
-    color: '#fff',
-    fontSize: 24,
-    marginVertical: 5,
-  },
-  input: {
-    color: '#000',
-    borderColor: '#000',
-    borderWidth: StyleSheet.hairlineWidth,
-    padding: 10,
-    fontSize: 20,
-    marginVertical: 5,
-    borderRadius: 10,
-    backgroundColor: '#fff'
-  },
-  button: {
-    backgroundColor: '#050A12',
-    height: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 10,
-    marginVertical: 5,
-  },
-  buttonText: {
-    color: 'white',
-    fontWeight: 'bold',
   },
 });

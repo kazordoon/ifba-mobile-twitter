@@ -27,7 +27,7 @@ export default function FeedScreen({ navigation }) {
 
   return (
     <ScrollView style={styles.page}>
-        <Button style={styles.button} onPress={() => navigation.navigate('CreatePost')} title="Criar postagem">Criar postagem</Button>
+      <Button style={styles.button} onPress={() => navigation.navigate('CreatePost')} title="Criar postagem">Criar postagem</Button>
       <Post navigation={navigation} post={staticData}></Post>
       <Post navigation={navigation} post={staticData}></Post>
       <Post navigation={navigation} post={staticData}></Post>
@@ -39,16 +39,6 @@ const styles = StyleSheet.create({
   page: {
     flex: 1,
     backgroundColor: 'white',
-  },
-  header: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    borderBottomColor: "rgba(82,82,82,.3)",
-    borderBottomWidth: 1,
-    paddingBottom: 5,
-    paddingRight: 14,
-    paddingLeft: 5,
   },
   button: {
     width: 50,

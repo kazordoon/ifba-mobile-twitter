@@ -4,7 +4,7 @@ export const colors = {
   primaryBg: '#1DA1F2'
 }
 
-const styles = StyleSheet.create({
+const commonStyles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.primaryBg,
@@ -56,8 +56,13 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     borderWidth: 1,
     borderColor: '#fff',
-    width: 300,
+    width: '100%',
     alignItems: 'center'
+  },
+  buttonBlackText: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 20,
   },
   buttonWhite: {
     backgroundColor: '#fff',
@@ -69,14 +74,34 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     borderWidth: 1,
     borderColor: '#000',
-    width: 300,
+    width: '100%',
     alignItems: 'center'
+  },
+  buttonWhiteText: {
+    color: 'black',
+    fontWeight: 'bold',
+    fontSize: 20,
   },
   userIcon: {
     width: 50,
     height: 50,
     borderRadius: 50
+  },
+  userImage: {
+    width: 200,
+    height: 200,
+    borderRadius: 50
+  },
+  textInput: {
+    color: '#000',
+    borderColor: '#000',
+    borderWidth: StyleSheet.hairlineWidth,
+    padding: 10,
+    fontSize: 20,
+    marginVertical: 5,
+    borderRadius: 10,
+    backgroundColor: '#fff'
   }
 })
 
-export default styles
+export default commonStyles

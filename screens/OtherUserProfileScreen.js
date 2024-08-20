@@ -9,7 +9,7 @@ export default function OtherUserProfileScreen({ route }) {
   return (
     <View style={styles.container}>
       <View style={styles.imageCenter}>
-        <Image style={styles.userImage} source={image} />
+        <Image style={commonStyles.userImage} source={image} />
       </View>
       <Text style={[styles.tinyText, { textAlign: 'center' }]}>
         {username}
@@ -20,6 +20,12 @@ export default function OtherUserProfileScreen({ route }) {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: colors.primaryBg,
+    flex: 1,
+    justifyContent: 'center',
+    padding: 24
+  },
   tinyText: {
     fontSize: 18,
     color: '#efefee'
@@ -28,19 +34,8 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: '#efefee'
   },
-  container: {
-    backgroundColor: colors.primaryBg,
-    flex: 1,
-    justifyContent: 'center',
-    padding: 24
-  },
   imageCenter: {
     justifyContent: 'center',
     alignItems: 'center'
   },
-  userImage: {
-    width: 200,
-    height: 200,
-    borderRadius: 50
-  }
 })

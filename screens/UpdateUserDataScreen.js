@@ -40,31 +40,31 @@ export default function UpdateUserDataScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.imageCenter}>
-        <TouchableOpacity style={commonStyles.buttonBlack} onPress={pickImage}>
-          <Text style={commonStyles.colorWhite}>Alterar imagem de perfil</Text>
+        <TouchableOpacity style={[commonStyles.buttonWhite, { width: 200, alignItems: 'center' }]} onPress={pickImage}>
+          <Text style={[commonStyles.buttonWhiteText, { fontSize: 16 }]}>Alterar imagem de perfil</Text>
         </TouchableOpacity>
-        {image && <Image source={{ uri: image }} style={styles.userImage} />}
+        {image && <Image source={{ uri: image }} style={commonStyles.userImage} />}
       </View>
       <TextInput
         placeholder="John Doe"
         placeholderTextColor="rgba(52, 52, 52, 0.8)"
         value={name}
         onChangeText={setName}
-        style={styles.input}
+        style={commonStyles.textInput}
       />
       <TextInput
         placeholder="@johndoe"
         placeholderTextColor="rgba(52, 52, 52, 0.8)"
         value={username}
         onChangeText={setUsername}
-        style={styles.input}
+        style={commonStyles.textInput}
       />
       <TextInput
         placeholder="johndoe@mail.net"
         placeholderTextColor="rgba(52, 52, 52, 0.8)"
         value={email}
         onChangeText={setEmail}
-        style={styles.input}
+        style={commonStyles.textInput}
       />
 
       <Modal
@@ -82,7 +82,7 @@ export default function UpdateUserDataScreen({ navigation }) {
               placeholderTextColor="rgba(52, 52, 52, 0.8)"
               value={oldPassword}
               onChangeText={setOldPassword}
-              style={[styles.input, { fontSize: 16 }]}
+              style={[commonStyles.textInput, { fontSize: 16 }]}
             />
             <TextInput
               secureTextEntry={true}
@@ -90,10 +90,10 @@ export default function UpdateUserDataScreen({ navigation }) {
               placeholderTextColor="rgba(52, 52, 52, 0.8)"
               value={newPassword}
               onChangeText={setNewPassword}
-              style={[styles.input, { fontSize: 16 }]}
+              style={[commonStyles.textInput, { fontSize: 16 }]}
             />
             <Pressable
-              style={[styles.button, styles.buttonClose]}
+              style={[commonStyles.buttonBlack]}
               onPress={() => {
                 setModalVisible(!modalVisible);
                 Alert.alert('Senha alterada com sucesso.');
@@ -104,22 +104,22 @@ export default function UpdateUserDataScreen({ navigation }) {
         </View>
       </Modal>
       <TouchableOpacity
-        style={styles.updatePasswordButton}
+        style={commonStyles.buttonWhite}
         onPress={() => setModalVisible(true)}
       >
-        <Text style={styles.updatePasswordButtonText}>
+        <Text style={commonStyles.buttonWhiteText}>
           Alterar senha
         </Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={styles.button}
+        style={[commonStyles.buttonBlack, { width: '100%' }]}
         onPress={() => {
           navigation.navigate('Feed');
           Alert.alert('Dados alterados com sucesso.');
         }}
       >
-        <Text style={styles.buttonText}>
+        <Text style={commonStyles.buttonBlackText}>
           Salvar
         </Text>
       </TouchableOpacity>
@@ -128,6 +128,17 @@ export default function UpdateUserDataScreen({ navigation }) {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: colors.primaryBg,
+    flex: 1,
+    justifyContent: 'center',
+    padding: 24,
+  },
+  imageCenter: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
   centeredView: {
     flex: 1,
     justifyContent: 'center',
@@ -149,14 +160,6 @@ const styles = StyleSheet.create({
     elevation: 5,
     width: '70%',
   },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-  },
-  buttonClose: {
-    backgroundColor: '#2196F3',
-  },
   textStyle: {
     color: 'white',
     fontWeight: 'bold',
@@ -165,63 +168,5 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: 'center',
-  },
-
-  container: {
-    backgroundColor: colors.primaryBg,
-    flex: 1,
-    justifyContent: 'center',
-    padding: 24,
-  },
-  imageCenter: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  userImage: {
-    width: 200,
-    height: 200,
-    borderRadius: 50,
-  },
-  label: {
-    color: '#fff',
-    fontSize: 24,
-    marginVertical: 5,
-  },
-  input: {
-    color: '#000',
-    borderColor: '#000',
-    borderWidth: StyleSheet.hairlineWidth,
-    padding: 10,
-    fontSize: 20,
-    marginVertical: 5,
-    borderRadius: 10,
-    backgroundColor: '#fff'
-  },
-  button: {
-    backgroundColor: '#050A12',
-    height: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 10,
-    marginVertical: 5,
-  },
-  updatePasswordButton: {
-    backgroundColor: '#fff',
-    height: 50,
-    alignItems: 'flex-start',
-    justifyContent: 'center',
-    borderRadius: 10,
-    marginVertical: 5,
-    paddingLeft: 10,
-  },
-  updatePasswordButtonText: {
-    color: '#050A12',
-    fontWeight: 'bold',
-    fontSize: 20,
-    textAlign: 'left',
-  },
-  buttonText: {
-    color: 'white',
-    fontWeight: 'bold',
   },
 });
