@@ -8,22 +8,41 @@ import {
   Modal,
   Pressable,
   Alert,
+  Button,
 } from 'react-native';
 import React, { useState } from 'react';
-import { colors } from '../styles';
+import * as ImagePicker from 'expo-image-picker';
+import commonStyles, { colors } from '../styles';
 
 export default function UpdateUserDataScreen({ navigation }) {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
+  const [image, setImage] = useState('https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/256x256/plain/user.png');
 
   const [modalVisible, setModalVisible] = useState(false);
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+    }
+  };
 
   return (
     <View style={styles.container}>
       <View style={styles.imageCenter}>
-        <Image style={styles.userImage} source={require('../assets/user.png')} />
+        <TouchableOpacity style={commonStyles.buttonBlack} onPress={pickImage}>
+          <Text style={commonStyles.colorWhite}>Alterar imagem de perfil</Text>
+        </TouchableOpacity>
+        {image && <Image source={{ uri: image }} style={styles.userImage} />}
       </View>
       <TextInput
         placeholder="@johndoe"
