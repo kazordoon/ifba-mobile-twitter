@@ -62,7 +62,7 @@ const commonStyles = StyleSheet.create({
   buttonBlackText: {
     color: 'white',
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 20
   },
   buttonWhite: {
     backgroundColor: '#fff',
@@ -80,7 +80,7 @@ const commonStyles = StyleSheet.create({
   buttonWhiteText: {
     color: 'black',
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 20
   },
   userIcon: {
     width: 50,

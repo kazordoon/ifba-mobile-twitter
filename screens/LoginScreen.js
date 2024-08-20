@@ -3,14 +3,14 @@ import {
   Text,
   TextInput,
   StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
-import React, { useState } from 'react';
-import commonStyles, { colors } from '../styles';
+  TouchableOpacity
+} from 'react-native'
+import React, { useState } from 'react'
+import commonStyles, { colors } from '../styles'
 
 export default function LoginScreen({ navigation }) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
   return (
     <View style={styles.container}>
@@ -23,7 +23,7 @@ export default function LoginScreen({ navigation }) {
         style={commonStyles.textInput}
       />
       <TextInput
-      secureTextEntry={true}
+        secureTextEntry={true}
         placeholder="Senha"
         placeholderTextColor="rgba(52, 52, 52, 0.8)"
         value={password}
@@ -34,21 +34,17 @@ export default function LoginScreen({ navigation }) {
         style={commonStyles.buttonBlack}
         onPress={() => navigation.navigate('Feed')}
       >
-        <Text
-          style={commonStyles.buttonBlackText}
-        >
-          Entrar
-        </Text>
+        <Text style={commonStyles.buttonBlackText}>Entrar</Text>
       </TouchableOpacity>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.primaryBg,
     flex: 1,
     justifyContent: 'center',
-    padding: 24,
-  },
-});
+    padding: 24
+  }
+})

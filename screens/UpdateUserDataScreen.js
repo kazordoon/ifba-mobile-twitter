@@ -8,42 +8,54 @@ import {
   Modal,
   Pressable,
   Alert,
-  Button,
-} from 'react-native';
-import React, { useState } from 'react';
-import * as ImagePicker from 'expo-image-picker';
-import commonStyles, { colors } from '../styles';
+  Button
+} from 'react-native'
+import React, { useState } from 'react'
+import * as ImagePicker from 'expo-image-picker'
+import commonStyles, { colors } from '../styles'
 
 export default function UpdateUserDataScreen({ navigation }) {
-  const [name, setName] = useState('');
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [oldPassword, setOldPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [image, setImage] = useState('https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/256x256/plain/user.png');
+  const [name, setName] = useState('')
+  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
+  const [oldPassword, setOldPassword] = useState('')
+  const [newPassword, setNewPassword] = useState('')
+  const [image, setImage] = useState(
+    'https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/256x256/plain/user.png'
+  )
 
-  const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false)
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       aspect: [4, 3],
-      quality: 1,
-    });
+      quality: 1
+    })
 
     if (!result.canceled) {
-      setImage(result.assets[0].uri);
+      setImage(result.assets[0].uri)
     }
-  };
+  }
 
   return (
     <View style={styles.container}>
       <View style={styles.imageCenter}>
-        <TouchableOpacity style={[commonStyles.buttonWhite, { width: 200, alignItems: 'center' }]} onPress={pickImage}>
-          <Text style={[commonStyles.buttonWhiteText, { fontSize: 16 }]}>Alterar imagem de perfil</Text>
+        <TouchableOpacity
+          style={[
+            commonStyles.buttonWhite,
+            { width: 200, alignItems: 'center' }
+          ]}
+          onPress={pickImage}
+        >
+          <Text style={[commonStyles.buttonWhiteText, { fontSize: 16 }]}>
+            Alterar imagem de perfil
+          </Text>
         </TouchableOpacity>
-        {image && <Image source={{ uri: image }} style={commonStyles.userImage} />}
+        {image && (
+          <Image source={{ uri: image }} style={commonStyles.userImage} />
+        )}
       </View>
       <TextInput
         placeholder="John Doe"
@@ -72,8 +84,9 @@ export default function UpdateUserDataScreen({ navigation }) {
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-          setModalVisible(!modalVisible);
-        }}>
+          setModalVisible(!modalVisible)
+        }}
+      >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <TextInput
@@ -95,9 +108,10 @@ export default function UpdateUserDataScreen({ navigation }) {
             <Pressable
               style={[commonStyles.buttonBlack]}
               onPress={() => {
-                setModalVisible(!modalVisible);
-                Alert.alert('Senha alterada com sucesso.');
-              }}>
+                setModalVisible(!modalVisible)
+                Alert.alert('Senha alterada com sucesso.')
+              }}
+            >
               <Text style={styles.textStyle}>Salvar nova senha</Text>
             </Pressable>
           </View>
@@ -107,43 +121,39 @@ export default function UpdateUserDataScreen({ navigation }) {
         style={commonStyles.buttonWhite}
         onPress={() => setModalVisible(true)}
       >
-        <Text style={commonStyles.buttonWhiteText}>
-          Alterar senha
-        </Text>
+        <Text style={commonStyles.buttonWhiteText}>Alterar senha</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={[commonStyles.buttonBlack, { width: '100%' }]}
         onPress={() => {
-          navigation.navigate('Feed');
-          Alert.alert('Dados alterados com sucesso.');
+          navigation.navigate('Feed')
+          Alert.alert('Dados alterados com sucesso.')
         }}
       >
-        <Text style={commonStyles.buttonBlackText}>
-          Salvar
-        </Text>
+        <Text style={commonStyles.buttonBlackText}>Salvar</Text>
       </TouchableOpacity>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.primaryBg,
     flex: 1,
     justifyContent: 'center',
-    padding: 24,
+    padding: 24
   },
   imageCenter: {
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
 
   centeredView: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 22,
+    marginTop: 22
   },
   modalView: {
     margin: 20,
@@ -153,20 +163,20 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 2
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
-    width: '70%',
+    width: '70%'
   },
   textStyle: {
     color: 'white',
     fontWeight: 'bold',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   modalText: {
     marginBottom: 15,
-    textAlign: 'center',
-  },
-});
+    textAlign: 'center'
+  }
+})

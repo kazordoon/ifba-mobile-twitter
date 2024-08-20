@@ -37,5 +37,5 @@ const styles = StyleSheet.create({
   imageCenter: {
     justifyContent: 'center',
     alignItems: 'center'
-  },
+  }
 })

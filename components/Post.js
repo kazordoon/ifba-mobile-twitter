@@ -1,11 +1,13 @@
-import { View, Text, Image, StyleSheet, Pressable } from 'react-native';
-import IconButton from './IconButton';
+import { View, Text, Image, StyleSheet, Pressable } from 'react-native'
+import IconButton from './IconButton'
 
 export default function Post({ post, navigation }) {
   return (
     <View>
       <Pressable style={styles.container}>
-        <Pressable onPress={() => navigation.navigate('OtherUserProfile', post.user)}>
+        <Pressable
+          onPress={() => navigation.navigate('OtherUserProfile', post.user)}
+        >
           <Image source={post.user.image} style={styles.userImage} />
         </Pressable>
 
@@ -27,8 +29,8 @@ export default function Post({ post, navigation }) {
         </View>
       </Pressable>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -36,37 +38,37 @@ const styles = StyleSheet.create({
     padding: 10,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderColor: 'lightgrey',
-    backgroundColor: 'white',
+    backgroundColor: 'white'
   },
   userImage: {
     width: 50,
     height: 50,
-    borderRadius: 50,
+    borderRadius: 50
   },
   mainContainer: {
     marginLeft: 10,
-    flex: 1,
+    flex: 1
   },
   name: {
-    fontWeight: '600',
+    fontWeight: '600'
   },
   username: {
     color: 'gray',
-    marginLeft: 5,
+    marginLeft: 5
   },
   content: {
     lineHeight: 20,
-    marginTop: 5,
+    marginTop: 5
   },
   image: {
     width: '100%',
     aspectRatio: 16 / 9,
     marginVertical: 10,
-    borderRadius: 15,
+    borderRadius: 15
   },
   footer: {
     flexDirection: 'row',
     marginVertical: 5,
-    justifyContent: 'space-between',
-  },
-});
+    justifyContent: 'space-between'
+  }
+})
