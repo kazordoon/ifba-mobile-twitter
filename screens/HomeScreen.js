@@ -9,14 +9,15 @@ export default function HomeScreen({ navigation }) {
       <Text style={styles.title}>Bem-vindo(a) ao Papacapim!</Text>
       <View>
       <TouchableOpacity
-          style={styles.loginScreenButton}
+          style={styles.buttonBlack}
           onPress={() => navigation.navigate('Login')}
           underlayColor='#fff'>
-          <Text style={styles.loginText}>Login</Text>
+          <Text style={styles.loginText}>Entrar com sua conta</Text>
       </TouchableOpacity>
       </View>
       <View>
       <TouchableOpacity
+        style={styles.buttonWhite}
           onPress={() => navigation.navigate('Registration')}
           underlayColor='#fff'>
           <Text style={styles.registrationText}>Novo por aqui? Crie uma conta.</Text>
