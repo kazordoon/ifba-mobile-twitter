@@ -72,9 +72,10 @@ const styles = StyleSheet.create({
   },
   postText: {
     flex: 1,
-    borderColor: '#000',
+    borderColor: 'rgba(82,82,82,.5)',
     borderWidth: 1,
     borderRadius: 10,
     paddingLeft: 5,
+    fontSize: 14
   },
 });

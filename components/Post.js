@@ -1,11 +1,13 @@
 import { View, Text, Image, StyleSheet, Pressable } from 'react-native';
 import IconButton from './IconButton';
 
-export default function Post({ post }) {
+export default function Post({ post, navigation }) {
   return (
     <View>
       <Pressable style={styles.container}>
-        <Image source={post.user.image} style={styles.userImage} />
+        <Pressable onPress={() => navigation.navigate('OtherUserProfile', post.user)}>
+          <Image source={post.user.image} style={styles.userImage} />
+        </Pressable>
 
         <View style={styles.mainContainer}>
           <View style={{ flexDirection: 'row' }}>

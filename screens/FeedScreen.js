@@ -35,9 +35,9 @@ export default function FeedScreen({ navigation }) {
           <Text style={[{ textAlign: 'center', fontSize: 34, color: '#fff' }, styles.button]}>+</Text>
         </TouchableOpacity>
       </View>
-      <Post post={staticData}></Post>
-      <Post post={staticData}></Post>
-      <Post post={staticData}></Post>
+      <Post navigation={navigation} post={staticData}></Post>
+      <Post navigation={navigation} post={staticData}></Post>
+      <Post navigation={navigation} post={staticData}></Post>
     </ScrollView>
   );
 }
