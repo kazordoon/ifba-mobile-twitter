@@ -55,7 +55,7 @@ export default function UpdateUserDataScreen({ navigation }) {
               placeholderTextColor="rgba(52, 52, 52, 0.8)"
               value={oldPassword}
               onChangeText={setOldPassword}
-              style={styles.input}
+              style={[styles.input, { fontSize: 16 }]}
             />
             <TextInput
               secureTextEntry={true}
@@ -63,7 +63,7 @@ export default function UpdateUserDataScreen({ navigation }) {
               placeholderTextColor="rgba(52, 52, 52, 0.8)"
               value={newPassword}
               onChangeText={setNewPassword}
-              style={styles.input}
+              style={[styles.input, { fontSize: 16 }]}
             />
             <Pressable
               style={[styles.button, styles.buttonClose]}
@@ -120,14 +120,12 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
+    width: '70%',
   },
   button: {
     borderRadius: 20,
     padding: 10,
     elevation: 2,
-  },
-  buttonOpen: {
-    backgroundColor: '#F194FF',
   },
   buttonClose: {
     backgroundColor: '#2196F3',
