@@ -9,7 +9,7 @@ import FeedScreen from './screens/FeedScreen';
 import UpdateUserDataScreen from './screens/UpdateUserDataScreen';
 import CreatePostScreen from './screens/CreatePostScreen';
 import OtherUserProfileScreen from './screens/OtherUserProfileScreen';
-import { TouchableOpacity } from 'react-native';
+import { Pressable, Image, TouchableOpacity } from 'react-native';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,8 +24,13 @@ export default function App() {
         <Stack.Screen name="Registration" options={{ title: "Registro" }} component={RegistrationScreen} />
 
         <Stack.Screen name="Feed" options={({ navigation }) => ({
-          title: "Feed",
+          title: null,
           headerBackVisible: false,
+          headerLeft: () => (
+            <Pressable onPress={() => navigation.navigate('UpdateUserData')}>
+              <Image style={styles.userIcon} source={require('./assets/user.png')} />
+            </Pressable>
+          ),
           headerRight: () => (
             <TouchableOpacity onPress={() => navigation.navigate('Login')}>
               <EvilIcons name="close" size={28} color="black" />

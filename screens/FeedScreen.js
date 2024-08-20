@@ -27,14 +27,7 @@ export default function FeedScreen({ navigation }) {
 
   return (
     <ScrollView style={styles.page}>
-      <View style={styles.header}>
-        <Pressable onPress={() => navigation.navigate('UpdateUserData')}>
-          <Image style={styles.userImage} source={require('../assets/user.png')} />
-        </Pressable>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('CreatePost')} title="+">
-          <Text style={[{ textAlign: 'center', fontSize: 34, color: '#fff' }, styles.button]}>+</Text>
-        </TouchableOpacity>
-      </View>
+        <Button style={styles.button} onPress={() => navigation.navigate('CreatePost')} title="Criar postagem">Criar postagem</Button>
       <Post navigation={navigation} post={staticData}></Post>
       <Post navigation={navigation} post={staticData}></Post>
       <Post navigation={navigation} post={staticData}></Post>
@@ -56,11 +49,6 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     paddingRight: 14,
     paddingLeft: 5,
-  },
-  userImage: {
-    width: 50,
-    height: 50,
-    borderRadius: 50,
   },
   button: {
     width: 50,

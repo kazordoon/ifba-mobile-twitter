@@ -71,6 +71,11 @@ const styles = StyleSheet.create({
     borderColor: '#000',
     width: 300,
     alignItems: 'center'
+  },
+  userIcon: {
+    width: 50,
+    height: 50,
+    borderRadius: 50
   }
 })
 
