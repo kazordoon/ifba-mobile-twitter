@@ -11,6 +11,8 @@ import OtherUserProfileScreen from './screens/OtherUserProfileScreen';
 
 const Stack = createNativeStackNavigator();
 
+// TODO: Saber quais são os dados necessários para a criação da conta assim como
+//       exibição, assim como informações sobre o feed(likes, retweets) se for pra ter
 export default function App() {
   return (
     <NavigationContainer style={ styles.container }>
