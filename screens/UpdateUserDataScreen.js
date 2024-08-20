@@ -15,6 +15,7 @@ import * as ImagePicker from 'expo-image-picker';
 import commonStyles, { colors } from '../styles';
 
 export default function UpdateUserDataScreen({ navigation }) {
+  const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [oldPassword, setOldPassword] = useState('');
@@ -44,6 +45,13 @@ export default function UpdateUserDataScreen({ navigation }) {
         </TouchableOpacity>
         {image && <Image source={{ uri: image }} style={styles.userImage} />}
       </View>
+      <TextInput
+        placeholder="John Doe"
+        placeholderTextColor="rgba(52, 52, 52, 0.8)"
+        value={name}
+        onChangeText={setName}
+        style={styles.input}
+      />
       <TextInput
         placeholder="@johndoe"
         placeholderTextColor="rgba(52, 52, 52, 0.8)"
