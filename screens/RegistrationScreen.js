@@ -41,7 +41,7 @@ export default function RegistrationScreen({ navigation }) {
       />
       <TextInput
         secureTextEntry={true}
-        placeholder="Senha"
+        placeholder="Confirmar senha"
         placeholderTextColor="rgba(52, 52, 52, 0.8)"
         value={passwordConfirmation}
         onChangeText={setPasswordConfirmation}
