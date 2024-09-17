@@ -13,8 +13,8 @@ import { Pressable, Image, TouchableOpacity } from 'react-native'
 
 const Stack = createNativeStackNavigator()
 
-// TODO: Saber quais são os dados necessários para a criação da conta assim como
-//       exibição, assim como informações sobre o feed(likes, retweets) se for pra ter
+// TODO: Adicionar opções para seguir e deixar de seguir usuário na interface e usar o devido recurso via API também
+// TODO: Adicionar opção de busca de usuário na interface e usar o devido recurso via API também
 export default function App() {
   return (
     <NavigationContainer style={styles.container}>
