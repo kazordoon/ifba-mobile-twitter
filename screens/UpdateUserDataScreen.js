@@ -47,12 +47,23 @@ export default function UpdateUserDataScreen({ navigation }) {
       Alert.alert('Dados atualizados com sucesso.');
       return navigation.navigate('Feed');
     }
-    
+
     Alert.alert('Não foi possível atualizar os dados, tente novamente.');
   }
 
   async function handleUserPasswordUpdate() {
+    const statusCode = await PapacapimAPI.updateUser({
+      password: oldPassword,
+      password_confirmation: newPassword
+    });
 
+    if (statusCode === 200) {
+      setModalVisible(!modalVisible);
+      Alert.alert('Senha alterada com sucesso, faça login novamente.');
+      return navigation.navigate('Login');
+    }
+
+    Alert.alert('Não foi possível atualizar a senha, tente novamente.');
   }
 
   return (
@@ -106,10 +117,7 @@ export default function UpdateUserDataScreen({ navigation }) {
             />
             <Pressable
               style={[commonStyles.buttonBlack]}
-              onPress={() => {
-                setModalVisible(!modalVisible);
-                Alert.alert('Senha alterada com sucesso.');
-              }}
+              onPress={handleUserPasswordUpdate}
             >
               <Text style={styles.textStyle}>Salvar nova senha</Text>
             </Pressable>

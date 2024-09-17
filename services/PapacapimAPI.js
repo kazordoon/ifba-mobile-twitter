@@ -52,14 +52,14 @@ export default class PapacapimAPI {
    */
   static async updateUser(user) {
     const token = await AsyncStorage.getItem('token');
-    const payload = getFilledObjectFields(user);
+    const payload = { user: { ...getFilledObjectFields(user) } };
 
     let response = await fetch(`${API_BASE_URL}users/1`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
-        'x-session-token': token,   
+        'x-session-token': token
       },
       body: JSON.stringify(payload)
     });
