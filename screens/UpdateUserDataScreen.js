@@ -30,13 +30,13 @@ export default function UpdateUserDataScreen({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
-    const fetch = async () => {
+    const getUserProfileInfo = async () => {
       const username = await AsyncStorage.getItem('username');
       const user = await PapacapimAPI.findUserByLogin(username);
       setUsernamePlaceholder(user.login);
       setNamePlaceholder(user.name);
     };
-    fetch();
+    getUserProfileInfo();
   });
 
   async function handleUserUpdate() {
@@ -49,6 +49,10 @@ export default function UpdateUserDataScreen({ navigation }) {
     }
     
     Alert.alert('Não foi possível atualizar os dados, tente novamente.');
+  }
+
+  async function handleUserPasswordUpdate() {
+
   }
 
   return (
