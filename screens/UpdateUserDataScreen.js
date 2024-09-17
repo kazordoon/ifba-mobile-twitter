@@ -66,6 +66,17 @@ export default function UpdateUserDataScreen({ navigation }) {
     Alert.alert('Não foi possível atualizar a senha, tente novamente.');
   }
 
+  async function handleUserDeletion() {
+    const status = await PapacapimAPI.deleteUser();
+
+    if (status === 204) {
+      Alert.alert('Conta deletada com sucesso.');
+      return navigation.navigate('Home');
+    }
+
+    Alert.alert('Não foi possível deletar sua conta, tente novamente.');
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.imageCenter}>
@@ -137,6 +148,24 @@ export default function UpdateUserDataScreen({ navigation }) {
       >
         <Text style={commonStyles.buttonBlackText}>Salvar</Text>
       </TouchableOpacity>
+
+      <TouchableOpacity
+        style={[styles.buttonRed, { width: '100%' }]}
+        onPress={() => {
+          Alert.alert(
+            'Deletar conta',
+            'Você deseja deletar sua conta permanentemente?',
+            [
+              {
+                text: 'Sim',
+                onPress: handleUserDeletion
+              }
+            ]
+          );
+        }}
+      >
+        <Text style={commonStyles.buttonBlackText}>Deletar conta</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -182,5 +211,19 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: 'center'
+  },
+
+  buttonRed: {
+    backgroundColor: 'rgb(250, 5, 5)',
+    height: 50,
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    borderRadius: 10,
+    marginVertical: 5,
+    paddingLeft: 10,
+    borderWidth: 1,
+    borderColor: '#fff',
+    width: '100%',
+    alignItems: 'center'
   }
 });

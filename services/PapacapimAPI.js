@@ -67,7 +67,19 @@ export default class PapacapimAPI {
     return response.status;
   }
 
-  static async deleteUser() {}
+  static async deleteUser() {
+    const token = await AsyncStorage.getItem('token');
+    let response = await fetch(`${API_BASE_URL}users/1`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        'x-session-token': token
+      }
+    });
+
+    return response.status;
+  }
 
   /**
    *
