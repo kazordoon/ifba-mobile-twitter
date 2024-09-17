@@ -136,10 +136,10 @@ export default function UpdateUserDataScreen({ navigation }) {
         </View>
       </Modal>
       <TouchableOpacity
-        style={commonStyles.buttonWhite}
+        style={commonStyles.buttonBlack}
         onPress={() => setModalVisible(true)}
       >
-        <Text style={commonStyles.buttonWhiteText}>Alterar senha</Text>
+        <Text style={commonStyles.buttonBlackText}>Alterar senha</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
