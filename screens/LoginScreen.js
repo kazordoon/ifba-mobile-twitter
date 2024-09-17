@@ -16,6 +16,7 @@ export default function LoginScreen({ navigation }) {
   const [password, setPassword] = useState('');
 
   async function handleLogin() {
+    await AsyncStorage.setItem('username', username);
     const token = await PapacapimAPI.authUser(username, password);
     if (token) {
       await AsyncStorage.setItem('token', token);
@@ -30,6 +31,7 @@ export default function LoginScreen({ navigation }) {
       <Text style={commonStyles.title}>Entre com sua conta</Text>
       <TextInput
         placeholder="Nome de usuário"
+        autoCapitalize="none"
         placeholderTextColor="rgba(52, 52, 52, 0.8)"
         value={username}
         onChangeText={setUsername}

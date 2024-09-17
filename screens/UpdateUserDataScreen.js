@@ -7,75 +7,60 @@ import {
   Image,
   Modal,
   Pressable,
-  Alert,
-  Button
-} from 'react-native'
-import React, { useState } from 'react'
-import * as ImagePicker from 'expo-image-picker'
-import commonStyles, { colors } from '../styles'
+  Alert
+} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import PapacapimAPI from '../services/PapacapimAPI';
+import commonStyles, { colors } from '../styles';
 
 export default function UpdateUserDataScreen({ navigation }) {
-  const [name, setName] = useState('')
-  const [username, setUsername] = useState('')
-  const [email, setEmail] = useState('')
-  const [oldPassword, setOldPassword] = useState('')
-  const [newPassword, setNewPassword] = useState('')
-  const [image, setImage] = useState(
-    'https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/256x256/plain/user.png'
-  )
+  const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
 
-  const [modalVisible, setModalVisible] = useState(false)
+  const [namePlaceholder, setNamePlaceholder] = useState('');
+  const [usernamePlaceholder, setUsernamePlaceholder] = useState('');
 
-  const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1
-    })
+  const [oldPassword, setOldPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
 
-    if (!result.canceled) {
-      setImage(result.assets[0].uri)
+  const IMAGE_URL =
+    'https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/256x256/plain/user.png';
+
+  const [modalVisible, setModalVisible] = useState(false);
+
+  useEffect(() => {
+    const fetch = async () => {
+      const user = await PapacapimAPI.findUserByLogin('abc');
+      setUsernamePlaceholder(user.login);
+      setNamePlaceholder(user.name);
     }
+    fetch();
+  })
+
+  async function handleUserUpdate() {
+    
   }
 
   return (
     <View style={styles.container}>
       <View style={styles.imageCenter}>
-        <TouchableOpacity
-          style={[
-            commonStyles.buttonWhite,
-            { width: 200, alignItems: 'center' }
-          ]}
-          onPress={pickImage}
-        >
-          <Text style={[commonStyles.buttonWhiteText, { fontSize: 16 }]}>
-            Alterar imagem de perfil
-          </Text>
-        </TouchableOpacity>
-        {image && (
-          <Image source={{ uri: image }} style={commonStyles.userImage} />
-        )}
+        <Image
+          source={{ uri: IMAGE_URL }}
+          style={{ ...commonStyles.userImage, marginBottom: 15 }}
+        />
       </View>
       <TextInput
-        placeholder="John Doe"
+        placeholder={namePlaceholder}
         placeholderTextColor="rgba(52, 52, 52, 0.8)"
         value={name}
         onChangeText={setName}
         style={commonStyles.textInput}
       />
       <TextInput
-        placeholder="@johndoe"
+        placeholder={usernamePlaceholder}
         placeholderTextColor="rgba(52, 52, 52, 0.8)"
         value={username}
         onChangeText={setUsername}
-        style={commonStyles.textInput}
-      />
-      <TextInput
-        placeholder="johndoe@mail.net"
-        placeholderTextColor="rgba(52, 52, 52, 0.8)"
-        value={email}
-        onChangeText={setEmail}
         style={commonStyles.textInput}
       />
 
@@ -84,7 +69,7 @@ export default function UpdateUserDataScreen({ navigation }) {
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-          setModalVisible(!modalVisible)
+          setModalVisible(!modalVisible);
         }}
       >
         <View style={styles.centeredView}>
@@ -108,8 +93,8 @@ export default function UpdateUserDataScreen({ navigation }) {
             <Pressable
               style={[commonStyles.buttonBlack]}
               onPress={() => {
-                setModalVisible(!modalVisible)
-                Alert.alert('Senha alterada com sucesso.')
+                setModalVisible(!modalVisible);
+                Alert.alert('Senha alterada com sucesso.');
               }}
             >
               <Text style={styles.textStyle}>Salvar nova senha</Text>
@@ -126,15 +111,12 @@ export default function UpdateUserDataScreen({ navigation }) {
 
       <TouchableOpacity
         style={[commonStyles.buttonBlack, { width: '100%' }]}
-        onPress={() => {
-          navigation.navigate('Feed')
-          Alert.alert('Dados alterados com sucesso.')
-        }}
+        onPress={handleUserUpdate}
       >
         <Text style={commonStyles.buttonBlackText}>Salvar</Text>
       </TouchableOpacity>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -179,4 +161,4 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     textAlign: 'center'
   }
-})
+});

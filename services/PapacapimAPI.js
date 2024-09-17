@@ -1,3 +1,5 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const API_BASE_URL = 'https://api.papacapim.just.pro.br/';
 
 export default class PapacapimAPI {
@@ -21,9 +23,9 @@ export default class PapacapimAPI {
   }
 
   /**
-   * 
-   * @param {string} login 
-   * @param {string} password 
+   *
+   * @param {string} login
+   * @param {string} password
    */
   static async authUser(login, password) {
     const payload = { login, password };
@@ -55,7 +57,20 @@ export default class PapacapimAPI {
    *
    * @param {string} userLogin
    */
-  static async findUserByLogin(userLogin) {}
+  static async findUserByLogin(userLogin) {
+    const token = await AsyncStorage.getItem('token');
+
+    const response = await fetch(`${API_BASE_URL}users/${userLogin}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        'x-session-token': token
+      }
+    });
+
+    const json = await response.json();
+    return json;
+  }
 
   static async findUsers() {}
 
