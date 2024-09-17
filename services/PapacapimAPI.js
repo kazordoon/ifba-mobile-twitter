@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import getFilledObjectFields from '../utils/getFilledObjectFields';
 
 const API_BASE_URL = 'https://api.papacapim.just.pro.br/';
 
@@ -49,7 +50,22 @@ export default class PapacapimAPI {
    *
    * @param {{ login?: string, name?: string, password?: string, password_confirmation?: string }} user
    */
-  static async updateUser(user) {}
+  static async updateUser(user) {
+    const token = await AsyncStorage.getItem('token');
+    const payload = getFilledObjectFields(user);
+
+    let response = await fetch(`${API_BASE_URL}users/1`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        'x-session-token': token,   
+      },
+      body: JSON.stringify(payload)
+    });
+
+    return response.status;
+  }
 
   static async deleteUser() {}
 

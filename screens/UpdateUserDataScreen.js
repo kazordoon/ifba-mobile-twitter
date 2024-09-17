@@ -12,6 +12,7 @@ import {
 import React, { useEffect, useState } from 'react';
 import PapacapimAPI from '../services/PapacapimAPI';
 import commonStyles, { colors } from '../styles';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function UpdateUserDataScreen({ navigation }) {
   const [name, setName] = useState('');
@@ -30,15 +31,24 @@ export default function UpdateUserDataScreen({ navigation }) {
 
   useEffect(() => {
     const fetch = async () => {
-      const user = await PapacapimAPI.findUserByLogin('abc');
+      const username = await AsyncStorage.getItem('username');
+      const user = await PapacapimAPI.findUserByLogin(username);
       setUsernamePlaceholder(user.login);
       setNamePlaceholder(user.name);
-    }
+    };
     fetch();
-  })
+  });
 
   async function handleUserUpdate() {
+    const statusCode = await PapacapimAPI.updateUser({ login: username, name });
+    if (statusCode === 200) {
+      if (username) await AsyncStorage.setItem('username', username);
+
+      Alert.alert('Dados atualizados com sucesso.');
+      return navigation.navigate('Feed');
+    }
     
+    Alert.alert('Não foi possível atualizar os dados, tente novamente.');
   }
 
   return (
