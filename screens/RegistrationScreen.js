@@ -3,16 +3,31 @@ import {
   Text,
   TextInput,
   StyleSheet,
-  TouchableOpacity
+  TouchableOpacity,
+  Alert
 } from 'react-native'
 import React, { useState } from 'react'
 import commonStyles, { colors } from '../styles'
+import PapacapimAPI from '../services/PapacapimAPI'
 
 export default function RegistrationScreen({ navigation }) {
   const [username, setUsername] = useState('')
-  const [email, setEmail] = useState('')
+  const [name, setName] = useState('')
   const [password, setPassword] = useState('')
   const [passwordConfirmation, setPasswordConfirmation] = useState('')
+
+  async function handleRegistration() {
+    const statusCode = await PapacapimAPI.registerUser({
+      login: username,
+      name,
+      password,
+      password_confirmation: passwordConfirmation
+    })
+
+    if (statusCode === 201) return navigation.navigate('Login')
+
+    Alert.alert('Não foi possível registrar uma nova conta, tente novamente.')
+  }
 
   return (
     <View style={styles.container}>
@@ -25,10 +40,10 @@ export default function RegistrationScreen({ navigation }) {
         style={commonStyles.textInput}
       />
       <TextInput
-        placeholder="E-mail"
+        placeholder="Nome"
         placeholderTextColor="rgba(52, 52, 52, 0.8)"
-        value={email}
-        onChangeText={setEmail}
+        value={name}
+        onChangeText={setName}
         style={commonStyles.textInput}
       />
       <TextInput
@@ -49,7 +64,7 @@ export default function RegistrationScreen({ navigation }) {
       />
       <TouchableOpacity
         style={commonStyles.buttonBlack}
-        onPress={() => navigation.navigate('Feed')}
+        onPress={handleRegistration}
       >
         <Text style={commonStyles.buttonBlackText}>Cadastrar</Text>
       </TouchableOpacity>
