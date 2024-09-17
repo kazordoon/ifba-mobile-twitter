@@ -1,4 +1,4 @@
-  const API_BASE_URL = 'https://api.papacapim.just.pro.br/';
+const API_BASE_URL = 'https://api.papacapim.just.pro.br/';
 
 export default class PapacapimAPI {
   /**
@@ -12,15 +12,34 @@ export default class PapacapimAPI {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
+        Accept: 'application/json'
       },
-      body: JSON.stringify(payload),
+      body: JSON.stringify(payload)
     });
 
-    return response.status
+    return response.status;
   }
 
-  static async authUser(login, password) {}
+  /**
+   * 
+   * @param {string} login 
+   * @param {string} password 
+   */
+  static async authUser(login, password) {
+    const payload = { login, password };
+
+    let response = await fetch(`${API_BASE_URL}sessions`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      },
+      body: JSON.stringify(payload)
+    });
+
+    response = await response.json();
+    return response.token;
+  }
 
   static async logout() {}
 
