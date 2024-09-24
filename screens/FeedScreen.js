@@ -2,11 +2,6 @@ import {
   Button,
   ScrollView,
   StyleSheet,
-  View,
-  Pressable,
-  Image,
-  TouchableOpacity,
-  Text
 } from 'react-native'
 import Post from '../components/Post'
 import { colors } from '../styles'
@@ -15,7 +10,7 @@ export default function FeedScreen({ navigation }) {
   const staticData = {
     user: {
       name: 'John Doe',
-      username: '@johndoe',
+      username: 'topiary',
       image: require('../assets/user.png')
     },
     content: 'Hello World',

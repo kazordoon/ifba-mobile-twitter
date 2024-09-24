@@ -37,7 +37,7 @@ export default function UpdateUserDataScreen({ navigation }) {
       setNamePlaceholder(user.name);
     };
     getUserProfileInfo();
-  });
+  }, []);
 
   async function handleUserUpdate() {
     const statusCode = await PapacapimAPI.updateUser({ login: username, name });

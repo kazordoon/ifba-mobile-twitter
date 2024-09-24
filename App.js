@@ -1,19 +1,19 @@
-import { NavigationContainer } from '@react-navigation/native'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { EvilIcons } from '@expo/vector-icons'
-import styles from './styles'
-import HomeScreen from './screens/HomeScreen'
-import RegistrationScreen from './screens/RegistrationScreen'
-import LoginScreen from './screens/LoginScreen'
-import FeedScreen from './screens/FeedScreen'
-import UpdateUserDataScreen from './screens/UpdateUserDataScreen'
-import CreatePostScreen from './screens/CreatePostScreen'
-import OtherUserProfileScreen from './screens/OtherUserProfileScreen'
-import { Pressable, Image, TouchableOpacity } from 'react-native'
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { EvilIcons } from '@expo/vector-icons';
+import { Pressable, Image, TouchableOpacity } from 'react-native';
+import styles from './styles';
+import HomeScreen from './screens/HomeScreen';
+import RegistrationScreen from './screens/RegistrationScreen';
+import LoginScreen from './screens/LoginScreen';
+import FeedScreen from './screens/FeedScreen';
+import UpdateUserDataScreen from './screens/UpdateUserDataScreen';
+import CreatePostScreen from './screens/CreatePostScreen';
+import OtherUserProfileScreen from './screens/OtherUserProfileScreen';
+import FollowersScreen from './screens/FollowersScreen';
 
-const Stack = createNativeStackNavigator()
+const Stack = createNativeStackNavigator();
 
-// TODO: Adicionar opções para seguir e deixar de seguir usuário na interface e usar o devido recurso via API também
 // TODO: Adicionar opção de busca de usuário na interface e usar o devido recurso via API também
 export default function App() {
   return (
@@ -71,7 +71,12 @@ export default function App() {
           options={{ title: 'Perfil de usuário' }}
           component={OtherUserProfileScreen}
         />
+        <Stack.Screen
+          name="Followers"
+          options={{ title: null }}
+          component={FollowersScreen}
+        />
       </Stack.Navigator>
     </NavigationContainer>
-  )
+  );
 }

@@ -106,17 +106,64 @@ export default class PapacapimAPI {
    *
    * @param {string} userLogin
    */
-  static async followUser(userLogin) {}
+  static async followUser(userLogin) {
+    const token = await AsyncStorage.getItem('token');
+
+    const response = await fetch(`${API_BASE_URL}users/${userLogin}/followers`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        'x-session-token': token
+      }
+    });
+
+    return response.status;
+  }
 
   /**
    *
    * @param {string} userLogin
    */
-  static async unfollowUser(userLogin) {}
+  static async unfollowUser(userLogin) {
+    const token = await AsyncStorage.getItem('token');
+
+    const response = await fetch(`${API_BASE_URL}users/${userLogin}/followers/1`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        'x-session-token': token
+      }
+    });
+
+    return response.status;
+  }
 
   /**
    *
    * @param {string} userLogin
    */
-  static async getUserFollowers(userLogin) {}
+  static async getUserFollowers(userLogin) {
+    const token = await AsyncStorage.getItem('token');
+    const response = await fetch(`${API_BASE_URL}users/${userLogin}/followers`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        'x-session-token': token
+      }
+    });
+
+    const json = await response.json();
+    return json;
+  }
+
+  /**
+   * @param {string} userLogin 
+   */
+  static async isFollowingUser(userLogin) {
+    const ownUsername = await AsyncStorage.getItem('username');
+    const followers = await PapacapimAPI.getUserFollowers(userLogin);
+    return followers.some(follower => follower.follower_login?.toLowerCase() === ownUsername);
+  }
 }
