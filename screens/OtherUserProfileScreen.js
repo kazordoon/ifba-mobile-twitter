@@ -74,18 +74,13 @@ export default function OtherUserProfileScreen({ navigation, route }) {
         <TouchableOpacity
           onPress={() => navigation.navigate('Followers', { followers })}
         >
-          <Text
-            style={[
-              styles.text,
-              { textAlign: 'center', marginTop: 5, marginBottom: 10 }
-            ]}
-          >
+          <Text style={styles.followers}>
             {followersQuantity}{' '}
             {followersQuantity === 1 ? 'Seguidor' : 'Seguidores'}
           </Text>
         </TouchableOpacity>
       </View>
-      <View>
+      <View style={{ marginTop: 20 }}>
         {following ? (
           <TouchableOpacity
             style={commonStyles.buttonBlack}
@@ -120,6 +115,13 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 24,
     color: '#efefee'
+  },
+  followers: {
+    textAlign: 'center',
+    marginTop: 5,
+    fontSize: 18,
+    color: '#fff',
+    textDecorationLine: 'underline'
   },
   imageCenter: {
     justifyContent: 'center',
