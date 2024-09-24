@@ -13,6 +13,7 @@ export default function FollowersScreen({ navigation, route }) {
     <ScrollView style={styles.page}>
       {followers.map((follower) => (
         <TouchableOpacity
+          key={follower.follower_login}
           onPress={() =>
             navigation.navigate('OtherUserProfile', {
               username: follower.follower_login
