@@ -101,7 +101,23 @@ export default class PapacapimAPI {
     return json;
   }
 
-  static async findUsers() {}
+  /**
+   * 
+   * @param {string} searchParam 
+   */
+  static async findUsers(searchParam) {
+    const token = await AsyncStorage.getItem('token');
+    const response = await fetch(`${API_BASE_URL}users/?search=${searchParam}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        'x-session-token': token
+      }
+    });
+
+    const foundUsers = await response.json();
+    return foundUsers;
+  }
 
   /**
    *

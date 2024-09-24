@@ -16,7 +16,7 @@ export default function LoginScreen({ navigation }) {
   const [password, setPassword] = useState('');
 
   async function handleLogin() {
-    await AsyncStorage.setItem('username', username);
+    await AsyncStorage.setItem('username', username.toLowerCase());
     const token = await PapacapimAPI.authUser(username, password);
     if (token) {
       await AsyncStorage.setItem('token', token);

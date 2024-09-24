@@ -1,7 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { EvilIcons } from '@expo/vector-icons';
-import { Pressable, Image, TouchableOpacity } from 'react-native';
+import { Pressable, Image, TouchableOpacity, View, Text } from 'react-native';
 import styles from './styles';
 import HomeScreen from './screens/HomeScreen';
 import RegistrationScreen from './screens/RegistrationScreen';
@@ -11,6 +11,7 @@ import UpdateUserDataScreen from './screens/UpdateUserDataScreen';
 import CreatePostScreen from './screens/CreatePostScreen';
 import OtherUserProfileScreen from './screens/OtherUserProfileScreen';
 import FollowersScreen from './screens/FollowersScreen';
+import SearchUserScreen from './screens/SearchUserScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -40,16 +41,31 @@ export default function App() {
           options={({ navigation }) => ({
             title: null,
             headerLeft: () => (
-              <Pressable onPress={() => navigation.navigate('UpdateUserData')}>
-                <Image
-                  style={styles.userIcon}
-                  source={require('./assets/user.png')}
-                />
-              </Pressable>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between'
+                }}
+              >
+                <Pressable
+                  onPress={() => navigation.navigate('UpdateUserData')}
+                >
+                  <Image
+                    style={styles.userIcon}
+                    source={require('./assets/user.png')}
+                  />
+                </Pressable>
+                <TouchableOpacity
+                  style={{ marginLeft: 10, marginTop: 4 }}
+                  onPress={() => navigation.navigate('SearchUser')}
+                >
+                  <EvilIcons name="search" size={50} color="black" />
+                </TouchableOpacity>
+              </View>
             ),
             headerRight: () => (
               <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                <EvilIcons name="close" size={38} color="black" />
+                <EvilIcons name="close" size={50} color="black" />
               </TouchableOpacity>
             )
           })}
@@ -75,6 +91,11 @@ export default function App() {
           name="Followers"
           options={{ title: null }}
           component={FollowersScreen}
+        />
+        <Stack.Screen
+          name="SearchUser"
+          options={{ title: 'Buscar usuário' }}
+          component={SearchUserScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>
