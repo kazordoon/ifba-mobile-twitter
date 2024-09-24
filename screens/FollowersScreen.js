@@ -8,7 +8,6 @@ import {
 
 export default function FollowersScreen({ navigation, route }) {
   const { followers } = route.params;
-  console.log(followers, followers.length);
 
   return (
     <ScrollView style={styles.page}>
