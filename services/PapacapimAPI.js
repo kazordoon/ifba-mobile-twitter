@@ -3,6 +3,7 @@ import getFilledObjectFields from '../utils/getFilledObjectFields';
 
 const API_BASE_URL = 'https://api.papacapim.just.pro.br/';
 
+// TODO: Refatorar repetição de código
 export default class PapacapimAPI {
   /**
    *
