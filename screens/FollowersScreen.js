@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   View,
   Text,
@@ -9,17 +10,23 @@ import {
 export default function FollowersScreen({ navigation, route }) {
   const { followers } = route.params;
 
+  async function handleProfileNavigation(follower) {
+    const ownUsername = await AsyncStorage.getItem('username');
+    if (follower.follower_login.toLowerCase() === ownUsername)
+      return navigation.navigate('UpdateUserData');
+
+    navigation.navigate('OtherUserProfile', {
+      username: follower.follower_login
+    });
+  }
+
   return (
     <ScrollView style={styles.page}>
       {followers.map((follower) => (
         <TouchableOpacity
           style={{ marginTop: 20 }}
           key={follower.follower_login}
-          onPress={() =>
-            navigation.navigate('OtherUserProfile', {
-              username: follower.follower_login
-            })
-          }
+          onPress={() => handleProfileNavigation(follower)}
         >
           <View
             style={{
