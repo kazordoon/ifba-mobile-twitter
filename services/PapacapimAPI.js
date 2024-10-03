@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import getFilledObjectFields from '../utils/getFilledObjectFields';
+import HTTP from '../utils/HTTP';
 
 const API_BASE_URL = 'https://api.papacapim.just.pro.br/';
 
@@ -10,18 +11,8 @@ export default class PapacapimAPI {
    * @param {{ login: string, name: string, password: string, password_confirmation: string }} user
    */
   static async registerUser(user) {
-    const payload = { user };
-
-    const response = await fetch(`${API_BASE_URL}users`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
-      },
-      body: JSON.stringify(payload)
-    });
-
-    return response.status;
+    const { statusCode } = await HTTP.request({ URL: `${API_BASE_URL}users`, method: 'POST', body: { user } });
+    return statusCode;
   }
 
   /**
@@ -30,18 +21,7 @@ export default class PapacapimAPI {
    * @param {string} password
    */
   static async authUser(login, password) {
-    const payload = { login, password };
-
-    let response = await fetch(`${API_BASE_URL}sessions`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
-      },
-      body: JSON.stringify(payload)
-    });
-
-    response = await response.json();
+    const { response } = await HTTP.request({ URL: `${API_BASE_URL}sessions`, method: 'POST', body: { login, password } });
     return response.token;
   }
 
@@ -52,34 +32,18 @@ export default class PapacapimAPI {
    * @param {{ login?: string, name?: string, password?: string, password_confirmation?: string }} user
    */
   static async updateUser(user) {
-    const token = await AsyncStorage.getItem('token');
-    const payload = { user: { ...getFilledObjectFields(user) } };
+    const authToken = await AsyncStorage.getItem('token');
+    const body = { user: { ...getFilledObjectFields(user) } };
 
-    let response = await fetch(`${API_BASE_URL}users/1`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        'x-session-token': token
-      },
-      body: JSON.stringify(payload)
-    });
-
-    return response.status;
+    const { statusCode } = await HTTP.request({ URL: `${API_BASE_URL}users/1`, method: 'PATCH', body, authToken });
+    return statusCode;
   }
 
   static async deleteUser() {
-    const token = await AsyncStorage.getItem('token');
-    let response = await fetch(`${API_BASE_URL}users/1`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        'x-session-token': token
-      }
-    });
+    const authToken = await AsyncStorage.getItem('token');
 
-    return response.status;
+    const { statusCode } = await HTTP.request({ URL: `${API_BASE_URL}users/1`, method: 'DELETE', authToken });
+    return statusCode;
   }
 
   /**
@@ -87,18 +51,10 @@ export default class PapacapimAPI {
    * @param {string} userLogin
    */
   static async findUserByLogin(userLogin) {
-    const token = await AsyncStorage.getItem('token');
+    const authToken = await AsyncStorage.getItem('token');
 
-    const response = await fetch(`${API_BASE_URL}users/${userLogin}`, {
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        'x-session-token': token
-      }
-    });
-
-    const json = await response.json();
-    return json;
+    const { response: user } = await HTTP.request({ URL: `${API_BASE_URL}users/${userLogin}`, method: 'DELETE', authToken });
+    return user;
   }
 
   /**
@@ -106,16 +62,9 @@ export default class PapacapimAPI {
    * @param {string} searchParam 
    */
   static async findUsers(searchParam) {
-    const token = await AsyncStorage.getItem('token');
-    const response = await fetch(`${API_BASE_URL}users/?search=${searchParam}`, {
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        'x-session-token': token
-      }
-    });
+    const authToken = await AsyncStorage.getItem('token');
 
-    const foundUsers = await response.json();
+    const { response: foundUsers } = await HTTP.request({ URL: `${API_BASE_URL}users/?search=${searchParam}`, method: 'GET', authToken });
     return foundUsers;
   }
 
@@ -124,18 +73,10 @@ export default class PapacapimAPI {
    * @param {string} userLogin
    */
   static async followUser(userLogin) {
-    const token = await AsyncStorage.getItem('token');
+    const authToken = await AsyncStorage.getItem('token');
 
-    const response = await fetch(`${API_BASE_URL}users/${userLogin}/followers`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        'x-session-token': token
-      }
-    });
-
-    return response.status;
+    const { statusCode } = await HTTP.request({ URL: `${API_BASE_URL}users/${userLogin}/followers`, method: 'POST', authToken });
+    return statusCode;
   }
 
   /**
@@ -143,18 +84,10 @@ export default class PapacapimAPI {
    * @param {string} userLogin
    */
   static async unfollowUser(userLogin) {
-    const token = await AsyncStorage.getItem('token');
+    const authToken = await AsyncStorage.getItem('token');
 
-    const response = await fetch(`${API_BASE_URL}users/${userLogin}/followers/1`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        'x-session-token': token
-      }
-    });
-
-    return response.status;
+    const { statusCode } = await HTTP.request({ URL: `${API_BASE_URL}users/${userLogin}/followers/1`, method: 'DELETE', authToken });
+    return statusCode;
   }
 
   /**
@@ -162,17 +95,8 @@ export default class PapacapimAPI {
    * @param {string} userLogin
    */
   static async getUserFollowers(userLogin) {
-    const token = await AsyncStorage.getItem('token');
-    const response = await fetch(`${API_BASE_URL}users/${userLogin}/followers`, {
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        'x-session-token': token
-      }
-    });
-
-    const json = await response.json();
-    return json;
+    const { response: userFollowers } = await HTTP.request({ URL: `${API_BASE_URL}users/${userLogin}/followers`, method: 'GET', authToken });
+    return userFollowers;
   }
 
   /**
