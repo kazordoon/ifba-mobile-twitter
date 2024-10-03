@@ -95,6 +95,7 @@ export default class PapacapimAPI {
    * @param {string} userLogin
    */
   static async getUserFollowers(userLogin) {
+    const authToken = await AsyncStorage.getItem('token');
     const { response: userFollowers } = await HTTP.request({ URL: `${API_BASE_URL}users/${userLogin}/followers`, method: 'GET', authToken });
     return userFollowers;
   }
