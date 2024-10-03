@@ -108,4 +108,14 @@ export default class PapacapimAPI {
     const followers = await PapacapimAPI.getUserFollowers(userLogin);
     return followers.some(follower => follower.follower_login?.toLowerCase() === ownUsername);
   }
+
+  /**
+   * 
+   * @param {string} message 
+   */
+  static async createPost(message) {
+    const authToken = await AsyncStorage.getItem('token');
+    const { statusCode } = await HTTP.request({ URL: `${API_BASE_URL}posts`, method: 'POST', body: { post: { message } }, authToken });
+    return statusCode;
+  }
 }

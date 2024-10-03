@@ -6,11 +6,23 @@ import {
   Image,
   TextInput,
   Pressable,
-  SafeAreaView
-} from 'react-native'
+  SafeAreaView,
+  Alert
+} from 'react-native';
+import PapacapimAPI from '../services/PapacapimAPI';
 
 export default function CreatePostScreen({ navigation }) {
-  const [text, setText] = useState('')
+  const [message, setMessage] = useState('');
+
+  async function handlePostCreation() {
+    const statusCode = await PapacapimAPI.createPost(message);
+    if (statusCode === 201) {
+      Alert.alert('Postagem criada com sucesso.');
+      return navigation.navigate('Feed');
+    }
+
+    Alert.alert('Não foi possível criar uma nova postagem.');
+  }
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
@@ -21,8 +33,8 @@ export default function CreatePostScreen({ navigation }) {
             style={styles.userIcon}
           />
           <TextInput
-            value={text}
-            onChangeText={setText}
+            value={message}
+            onChangeText={setMessage}
             placeholder="O que está acontecendo?"
             multiline
             numberOfLines={5}
@@ -32,14 +44,14 @@ export default function CreatePostScreen({ navigation }) {
         <View style={styles.buttonContainer}>
           <Pressable
             style={styles.button}
-            onPress={() => navigation.navigate('Feed')}
+            onPress={handlePostCreation}
           >
             <Text style={styles.buttonText}>Postar</Text>
           </Pressable>
         </View>
       </View>
     </SafeAreaView>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -81,4 +93,4 @@ const styles = StyleSheet.create({
     paddingLeft: 5,
     fontSize: 14
   }
-})
+});
