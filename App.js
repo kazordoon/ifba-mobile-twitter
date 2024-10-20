@@ -15,7 +15,6 @@ import SearchUserScreen from './screens/SearchUserScreen';
 
 const Stack = createNativeStackNavigator();
 
-// TODO: Adicionar opção de busca de usuário na interface e usar o devido recurso via API também
 export default function App() {
   return (
     <NavigationContainer style={styles.container}>
