@@ -1,24 +1,22 @@
-import {
-  Button,
-  ScrollView,
-  StyleSheet,
-} from 'react-native'
-import Post from '../components/Post'
-import { colors } from '../styles'
+import { Button, ScrollView, StyleSheet } from 'react-native';
+import PapacapimAPI from '../services/PapacapimAPI';
+import Post from '../components/Post';
+import { colors } from '../styles';
+import { useEffect, useState } from 'react';
 
 export default function FeedScreen({ navigation }) {
-  const staticData = {
-    user: {
-      name: 'John Doe',
-      username: 'topiary',
-      image: require('../assets/user.png')
-    },
-    content: 'Hello World',
-    image: require('../assets/example.jpg'),
-    numberOfComments: 5,
-    numberOfRetweets: 2,
-    numberOfLikes: 12
+  const [pageNumber, setPageNumber] = useState(1);
+  const [posts, setPosts] = useState([]);
+
+  async function handlePostsLoading() {
+    const newPosts = await PapacapimAPI.getPosts(pageNumber);
+    setPageNumber(pageNumber + 1);
+    setPosts([...posts, ...newPosts]);
   }
+
+  useEffect(() => {
+    handlePostsLoading();
+  }, []);
 
   return (
     <ScrollView style={styles.page}>
@@ -29,11 +27,14 @@ export default function FeedScreen({ navigation }) {
       >
         Criar postagem
       </Button>
-      <Post navigation={navigation} post={staticData}></Post>
-      <Post navigation={navigation} post={staticData}></Post>
-      <Post navigation={navigation} post={staticData}></Post>
+      {posts.map((post) => (
+        <Post key={post.id} navigation={navigation} post={post}></Post>
+      ))}
+      <Button onPress={handlePostsLoading} title="Carregar mais posts">
+        Carregar mais posts
+      </Button>
     </ScrollView>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -47,4 +48,4 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primaryBg,
     borderRadius: 50
   }
-})
+});

@@ -1,35 +1,31 @@
-import { View, Text, Image, StyleSheet, Pressable } from 'react-native'
-import IconButton from './IconButton'
+import { View, Text, Image, StyleSheet, Pressable } from 'react-native';
+import IconButton from './IconButton';
+import formatDate from '../utils/formatDate';
 
 export default function Post({ post, navigation }) {
   return (
     <View>
       <Pressable style={styles.container}>
         <Pressable
-          onPress={() => navigation.navigate('OtherUserProfile', post.user)}
+          onPress={() => navigation.navigate('OtherUserProfile', { username: post.user_login })}
         >
-          <Image source={post.user.image} style={styles.userImage} />
+          <Image source={require('../assets/user.png')} style={styles.userImage} />
         </Pressable>
 
         <View style={styles.mainContainer}>
           <View style={{ flexDirection: 'row' }}>
-            <Text style={styles.name}>{post.user.name}</Text>
-            <Text style={styles.username}>{post.user.username} · 1h</Text>
+            <Text style={styles.name}>@{post.user_login}</Text>
+            <Text style={styles.username}>· {formatDate(post.created_at)}</Text>
           </View>
-
-          <Text style={styles.content}>{post.content}</Text>
-
-          {post.image && <Image source={post.image} style={styles.image} />}
-
+          <Text style={styles.content}>{post.message}</Text>
           <View style={styles.footer}>
-            <IconButton icon="comment" text={post.numberOfComments} />
-            <IconButton icon="retweet" text={post.numberOfRetweets} />
-            <IconButton icon="heart" text={post.numberOfLikes} />
+            <IconButton icon="comment" text={"5"} />
+            <IconButton icon="heart" text={"12"} />
           </View>
         </View>
       </Pressable>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -56,7 +52,7 @@ const styles = StyleSheet.create({
     color: 'gray',
     marginLeft: 5
   },
-  content: {
+  message: {
     lineHeight: 20,
     marginTop: 5
   },
@@ -69,6 +65,6 @@ const styles = StyleSheet.create({
   footer: {
     flexDirection: 'row',
     marginVertical: 5,
-    justifyContent: 'space-between'
+    justifyContent: 'flex-start'
   }
-})
+});

@@ -15,6 +15,11 @@ import SearchUserScreen from './screens/SearchUserScreen';
 
 const Stack = createNativeStackNavigator();
 
+// TODO: Responder postagem
+// TODO: Excluir postagem
+// TODO: Buscar postagem
+// TODO: Curtir e descurtir
+
 export default function App() {
   return (
     <NavigationContainer style={styles.container}>

@@ -9,7 +9,6 @@ import {
 import React, { useEffect, useState } from 'react';
 import commonStyles, { colors } from '../styles';
 import PapacapimAPI from '../services/PapacapimAPI';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function OtherUserProfileScreen({ navigation, route }) {
   const { username } = route.params;

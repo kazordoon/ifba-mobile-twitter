@@ -4,7 +4,6 @@ import HTTP from '../utils/HTTP';
 
 const API_BASE_URL = 'https://api.papacapim.just.pro.br/';
 
-// TODO: Refatorar repetição de código
 export default class PapacapimAPI {
   /**
    *
@@ -107,6 +106,16 @@ export default class PapacapimAPI {
     const ownUsername = await AsyncStorage.getItem('username');
     const followers = await PapacapimAPI.getUserFollowers(userLogin);
     return followers.some(follower => follower.follower_login?.toLowerCase() === ownUsername);
+  }
+
+  /**
+   * 
+   * @param {number} pageNumber 
+   */
+  static async getPosts(pageNumber = 1) {
+    const authToken = await AsyncStorage.getItem('token');
+    const { response: posts } = await HTTP.request({ URL: `${API_BASE_URL}posts?page=${pageNumber}`, method: 'GET', authToken });
+    return posts;
   }
 
   /**
