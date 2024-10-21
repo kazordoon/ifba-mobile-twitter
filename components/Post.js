@@ -1,5 +1,6 @@
 import { View, Text, Image, StyleSheet, Pressable } from 'react-native';
-import IconButton from './IconButton';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
+import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import formatDate from '../utils/formatDate';
 
 export default function Post({ post, navigation }) {
@@ -7,9 +8,16 @@ export default function Post({ post, navigation }) {
     <View>
       <Pressable style={styles.container}>
         <Pressable
-          onPress={() => navigation.navigate('OtherUserProfile', { username: post.user_login })}
+          onPress={() =>
+            navigation.navigate('OtherUserProfile', {
+              username: post.user_login
+            })
+          }
         >
-          <Image source={require('../assets/user.png')} style={styles.userImage} />
+          <Image
+            source={require('../assets/user.png')}
+            style={styles.userImage}
+          />
         </Pressable>
 
         <View style={styles.mainContainer}>
@@ -19,8 +27,14 @@ export default function Post({ post, navigation }) {
           </View>
           <Text style={styles.content}>{post.message}</Text>
           <View style={styles.footer}>
-            <IconButton icon="comment" text={"5"} />
-            <IconButton icon="heart" text={"12"} />
+            <View style={styles.icon}>
+              <FontAwesome6 name={'comment'} size={22} color="gray" />
+              <Text style={{ fontSize: 12, color: 'gray' }}> 5 </Text>
+            </View>
+            <View style={styles.icon}>
+              <FontAwesome name="heart-o" size={22} color="gray" />
+              <Text style={{ fontSize: 12, color: 'gray' }}> 5 </Text>
+            </View>
           </View>
         </View>
       </Pressable>
@@ -61,6 +75,11 @@ const styles = StyleSheet.create({
     aspectRatio: 16 / 9,
     marginVertical: 10,
     borderRadius: 15
+  },
+  icon: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginRight: 10
   },
   footer: {
     flexDirection: 'row',
