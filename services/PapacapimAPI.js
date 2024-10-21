@@ -53,7 +53,7 @@ export default class PapacapimAPI {
   static async findUserByLogin(userLogin) {
     const authToken = await AsyncStorage.getItem('token');
 
-    const { response: user } = await HTTP.request({ URL: `${API_BASE_URL}users/${userLogin}`, method: 'DELETE', authToken });
+    const { response: user } = await HTTP.request({ URL: `${API_BASE_URL}users/${userLogin}`, method: 'GET', authToken });
     return user;
   }
 
