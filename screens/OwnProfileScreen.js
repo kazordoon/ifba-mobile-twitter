@@ -51,14 +51,7 @@ export default function OwnProfileScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Pressable
-        style={styles.button}
-        onPress={() => navigation.navigate('UpdateUserData')}
-      >
-        <Text style={styles.textWhite}>Editar perfil</Text>
-      </Pressable>
-
-      <View style={styles.imageCenter}>
+      <View style={styles.center}>
         <Image
           style={styles.userImage}
           source={require('../assets/user.png')}
@@ -77,6 +70,14 @@ export default function OwnProfileScreen({ navigation }) {
             {followersQuantity === 1 ? 'Seguidor' : 'Seguidores'}
           </Text>
         </TouchableOpacity>
+      </View>
+      <View style={styles.center}>
+        <Pressable
+          style={styles.button}
+          onPress={() => navigation.navigate('UpdateUserData')}
+        >
+          <Text style={styles.textWhite}>Editar perfil</Text>
+        </Pressable>
       </View>
 
       <ScrollView style={styles.postsContainer}>
@@ -114,7 +115,9 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     borderRadius: 50,
     height: 50,
-    alignItems: 'center'
+    width: 300,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   textWhite: {
     color: '#fff',
@@ -136,9 +139,10 @@ const styles = StyleSheet.create({
     color: '#fff',
     textDecorationLine: 'underline'
   },
-  imageCenter: {
+  center: {
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginTop: 5
   },
   postsContainer: {
     marginTop: 20
