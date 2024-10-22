@@ -163,6 +163,21 @@ export default class PapacapimAPI {
 
   /**
    *
+   * @param {string} searchParam
+   */
+    static async findPosts(searchParam) {
+      const authToken = await AsyncStorage.getItem('token');
+  
+      const { response: foundPosts } = await HTTP.request({
+        URL: `${API_BASE_URL}posts?search=${searchParam}`,
+        method: 'GET',
+        authToken
+      });
+      return foundPosts;
+    }
+
+  /**
+   *
    * @param {number} postID
    */
   static async getPostByID(postID) {

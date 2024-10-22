@@ -12,12 +12,12 @@ import CreatePostScreen from './screens/CreatePostScreen';
 import OtherUserProfileScreen from './screens/OtherUserProfileScreen';
 import FollowersScreen from './screens/FollowersScreen';
 import SearchUserScreen from './screens/SearchUserScreen';
+import SearchPostScreen from './screens/SearchPostScreen';
 import ShowPostScreen from './screens/ShowPostScreen';
 import OwnProfileScreen from './screens/OwnProfileScreen';
+import SearchScreen from './screens/SearchScreen';
 
 const Stack = createNativeStackNavigator();
-
-// TODO: Buscar postagem
 
 export default function App() {
   return (
@@ -37,6 +37,11 @@ export default function App() {
           name="Registration"
           options={{ title: 'Registro' }}
           component={RegistrationScreen}
+        />
+        <Stack.Screen
+          name="Search"
+          options={{ title: 'Buscar' }}
+          component={SearchScreen}
         />
 
         <Stack.Screen
@@ -60,7 +65,7 @@ export default function App() {
                 </Pressable>
                 <TouchableOpacity
                   style={{ marginLeft: 10, marginTop: 4 }}
-                  onPress={() => navigation.navigate('SearchUser')}
+                  onPress={() => navigation.navigate('Search')}
                 >
                   <EvilIcons name="search" size={50} color="black" />
                 </TouchableOpacity>
@@ -109,6 +114,11 @@ export default function App() {
           name="SearchUser"
           options={{ title: 'Buscar usuário' }}
           component={SearchUserScreen}
+        />
+        <Stack.Screen
+          name="SearchPost"
+          options={{ title: 'Buscar postagem' }}
+          component={SearchPostScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>
