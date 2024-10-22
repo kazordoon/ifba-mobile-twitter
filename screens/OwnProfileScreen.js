@@ -15,7 +15,7 @@ import PapacapimAPI from '../services/PapacapimAPI';
 import Post from '../components/Post';
 
 export default function OwnProfileScreen({ navigation }) {
-  const [pageNumber, setPageNumber] = useState(1);
+  const [pageNumber, setPageNumber] = useState(0);
   const [user, setUser] = useState({});
   const [userPosts, setUserPosts] = useState([]);
   const [followers, setFollowers] = useState([]);
@@ -45,7 +45,7 @@ export default function OwnProfileScreen({ navigation }) {
 
   useEffect(() => {
     handleProfileLoading();
-  }, [userPosts]);
+  }, []);
 
   return (
     <View style={styles.container}>

@@ -5,7 +5,7 @@ import { colors } from '../styles';
 import { useEffect, useState } from 'react';
 
 export default function FeedScreen({ navigation }) {
-  const [pageNumber, setPageNumber] = useState(1);
+  const [pageNumber, setPageNumber] = useState(0);
   const [posts, setPosts] = useState([]);
 
   async function handlePostsLoading() {

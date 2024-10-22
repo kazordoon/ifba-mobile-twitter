@@ -151,7 +151,7 @@ export default class PapacapimAPI {
    *
    * @param {number} pageNumber
    */
-  static async getPosts(pageNumber = 1) {
+  static async getPosts(pageNumber = 0) {
     const authToken = await AsyncStorage.getItem('token');
     const { response: posts } = await HTTP.request({
       URL: `${API_BASE_URL}posts?page=${pageNumber}`,
@@ -195,7 +195,7 @@ export default class PapacapimAPI {
    * @param {string} userLogin
    * @param {number} pageNumber
    */
-    static async getPostsFromUser(userLogin, pageNumber = 1) {
+    static async getPostsFromUser(userLogin, pageNumber = 0) {
       const authToken = await AsyncStorage.getItem('token');
   
       const { response: userPosts } = await HTTP.request({
