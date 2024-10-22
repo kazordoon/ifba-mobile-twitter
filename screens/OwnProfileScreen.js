@@ -85,6 +85,11 @@ export default function OwnProfileScreen({ navigation }) {
             navigation={navigation}
             post={post}
             isOwnPost={true}
+            actionAfterDelete={async () => {
+              const username = await AsyncStorage.getItem('username');
+              const posts = await PapacapimAPI.getPostsFromUser(username);
+              setUserPosts(posts);
+            }}
           />
         ))}
       </ScrollView>

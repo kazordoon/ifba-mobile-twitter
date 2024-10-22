@@ -7,7 +7,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import formatDate from '../utils/formatDate';
 import PapacapimAPI from '../services/PapacapimAPI';
 
-export default function Post({ isOwnPost, post, navigation }) {
+export default function Post({
+  actionAfterDelete,
+  isOwnPost,
+  post,
+  navigation
+}) {
   const [hasLiked, setHasLiked] = useState(false);
   const [postData, setPostData] = useState({});
 
@@ -21,7 +26,7 @@ export default function Post({ isOwnPost, post, navigation }) {
     async function loadLikesAndReplies() {
       const likes = await PapacapimAPI.getPostLikes(post.id);
       const replies = await PapacapimAPI.getPostReplies(post.id);
-  
+
       post.likes = likes;
       post.replies = replies;
 
@@ -33,14 +38,14 @@ export default function Post({ isOwnPost, post, navigation }) {
 
     loadLikesAndReplies();
     getIfUserHasLikedThePost();
-  }, []);
+  }, [postData]);
 
   async function handlePostLike() {
     if (!hasLiked) {
-      post.likeNumbers = post.likeNumbers + 1;
+      post.likeNumbers = postData.likeNumbers + 1;
       await PapacapimAPI.likePost(post.id);
     } else {
-      post.likeNumbers = post.likeNumbers - 1;
+      post.likeNumbers = postData.likeNumbers - 1;
       await PapacapimAPI.dislikePost(post.id);
     }
 
@@ -49,8 +54,10 @@ export default function Post({ isOwnPost, post, navigation }) {
   }
 
   async function handlePostDeletion() {
+    console.log(post.id);
     const statusCode = await PapacapimAPI.deletePost(post.id);
     if (statusCode === 204) {
+      if (actionAfterDelete) await actionAfterDelete();
       return Alert.alert('Postagem deletada com sucesso.');
     }
 
