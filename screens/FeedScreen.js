@@ -3,7 +3,6 @@ import PapacapimAPI from '../services/PapacapimAPI';
 import Post from '../components/Post';
 import { colors } from '../styles';
 import { useEffect, useState } from 'react';
-import setPostsLikesAndReplies from '../utils/setPostsLikesAndReplies';
 
 export default function FeedScreen({ navigation }) {
   const [pageNumber, setPageNumber] = useState(1);
@@ -11,7 +10,6 @@ export default function FeedScreen({ navigation }) {
 
   async function handlePostsLoading() {
     const newPosts = await PapacapimAPI.getPosts(pageNumber);
-    await setPostsLikesAndReplies(newPosts);
 
     setPageNumber(pageNumber + 1);
     setPosts([...posts, ...newPosts]);

@@ -7,7 +7,6 @@ import {
 } from 'react-native';
 import Post from '../components/Post';
 import PapacapimAPI from '../services/PapacapimAPI';
-import setPostsLikesAndReplies from '../utils/setPostsLikesAndReplies';
 
 export default function SearchPostScreen({ navigation }) {
   const [searchParam, setSearchParam] = useState('');
@@ -15,7 +14,6 @@ export default function SearchPostScreen({ navigation }) {
 
   async function handlePostsFinding() {
     const foundPosts = await PapacapimAPI.findPosts(searchParam);
-    await setPostsLikesAndReplies(foundPosts);
 
     setPosts(foundPosts);
   }

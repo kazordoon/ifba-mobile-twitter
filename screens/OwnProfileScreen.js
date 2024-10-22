@@ -13,7 +13,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { colors } from '../styles';
 import PapacapimAPI from '../services/PapacapimAPI';
 import Post from '../components/Post';
-import setPostsLikesAndReplies from '../utils/setPostsLikesAndReplies';
 
 export default function OwnProfileScreen({ navigation }) {
   const [pageNumber, setPageNumber] = useState(1);
@@ -34,7 +33,6 @@ export default function OwnProfileScreen({ navigation }) {
   async function loadProfilePosts() {
     const username = await AsyncStorage.getItem('username');
     const posts = await PapacapimAPI.getPostsFromUser(username, pageNumber);
-    await setPostsLikesAndReplies(posts);
 
     setPageNumber(pageNumber + 1);
     setUserPosts([...userPosts, ...posts]);

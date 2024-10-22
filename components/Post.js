@@ -9,6 +9,7 @@ import PapacapimAPI from '../services/PapacapimAPI';
 
 export default function Post({ isOwnPost, post, navigation }) {
   const [hasLiked, setHasLiked] = useState(false);
+  const [postData, setPostData] = useState({});
 
   useEffect(() => {
     async function getIfUserHasLikedThePost() {
@@ -17,23 +18,34 @@ export default function Post({ isOwnPost, post, navigation }) {
       setHasLiked(likes.some((user) => user.user_login === ownUsername));
     }
 
+    async function loadLikesAndReplies() {
+      const likes = await PapacapimAPI.getPostLikes(post.id);
+      const replies = await PapacapimAPI.getPostReplies(post.id);
+  
+      post.likes = likes;
+      post.replies = replies;
+
+      post.likeNumbers = likes.length;
+      post.replyNumbers = replies.length;
+
+      setPostData(post);
+    }
+
+    loadLikesAndReplies();
     getIfUserHasLikedThePost();
   }, []);
 
   async function handlePostLike() {
     if (!hasLiked) {
       post.likeNumbers = post.likeNumbers + 1;
-    } else {
-      post.likeNumbers = post.likeNumbers - 1;
-    }
-
-    if (!hasLiked) {
       await PapacapimAPI.likePost(post.id);
     } else {
+      post.likeNumbers = post.likeNumbers - 1;
       await PapacapimAPI.dislikePost(post.id);
     }
 
     setHasLiked(!hasLiked);
+    setPostData(post);
   }
 
   async function handlePostDeletion() {
@@ -85,7 +97,7 @@ export default function Post({ isOwnPost, post, navigation }) {
                 <FontAwesome6 name={'comment'} size={22} color="gray" />
                 <Text style={{ fontSize: 12, color: 'gray' }}>
                   {' '}
-                  {post.replyNumbers}{' '}
+                  {postData.replyNumbers}{' '}
                 </Text>
               </View>
               <View style={styles.icon}>
@@ -97,7 +109,7 @@ export default function Post({ isOwnPost, post, navigation }) {
                 />
                 <Text style={{ fontSize: 12, color: 'gray' }}>
                   {' '}
-                  {post.likeNumbers}{' '}
+                  {postData.likeNumbers}{' '}
                 </Text>
               </View>
             </View>
