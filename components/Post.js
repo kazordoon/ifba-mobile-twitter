@@ -1,9 +1,40 @@
 import { View, Text, Image, StyleSheet, Pressable } from 'react-native';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+import { useEffect, useState } from 'react';
 import formatDate from '../utils/formatDate';
+import PapacapimAPI from '../services/PapacapimAPI';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Post({ post, navigation }) {
+  const [hasLiked, setHasLiked] = useState(false);
+
+  useEffect(() => {
+    async function getIfUserHasLikedThePost() {
+      const ownUsername = await AsyncStorage.getItem('username');
+      const { likes } = await PapacapimAPI.getPostByID(post.id);
+      setHasLiked(likes.some((user) => user.user_login === ownUsername));
+    }
+
+    getIfUserHasLikedThePost();
+  }, []);
+
+  async function handlePostLike() {
+    if (!hasLiked) {
+      post.likeNumbers = post.likeNumbers + 1;
+    } else {
+      post.likeNumbers = post.likeNumbers - 1;
+    }
+
+    if (!hasLiked) {
+      await PapacapimAPI.likePost(post.id);
+    } else {
+      await PapacapimAPI.dislikePost(post.id);
+    }
+
+    setHasLiked(!hasLiked);
+  }
+
   return (
     <View>
       <Pressable style={styles.container}>
@@ -20,9 +51,7 @@ export default function Post({ post, navigation }) {
           />
         </Pressable>
 
-        <Pressable
-          onPress={() => navigation.navigate('ShowPost', { post })}
-        >
+        <Pressable onPress={() => navigation.navigate('ShowPost', { post })}>
           <View style={styles.mainContainer}>
             <View style={{ flexDirection: 'row' }}>
               <Text style={styles.name}>@{post.user_login}</Text>
@@ -40,7 +69,12 @@ export default function Post({ post, navigation }) {
                 </Text>
               </View>
               <View style={styles.icon}>
-                <FontAwesome name="heart-o" size={22} color="gray" />
+                <FontAwesome
+                  name={hasLiked ? 'heart' : 'heart-o'}
+                  size={22}
+                  color={hasLiked ? 'red' : 'gray'}
+                  onPress={handlePostLike}
+                />
                 <Text style={{ fontSize: 12, color: 'gray' }}>
                   {' '}
                   {post.likeNumbers}{' '}
@@ -49,7 +83,6 @@ export default function Post({ post, navigation }) {
             </View>
           </View>
         </Pressable>
-
       </Pressable>
     </View>
   );

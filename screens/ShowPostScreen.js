@@ -7,7 +7,7 @@ import {
   StyleSheet,
   Alert
 } from 'react-native';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import PapacapimAPI from '../services/PapacapimAPI';
 import Post from '../components/Post';
 import formatDate from '../utils/formatDate';
@@ -24,6 +24,7 @@ export default function ShowPostScreen({ route, navigation }) {
       message
     );
     if (statusCode === 201) {
+      post.replyNumbers = post.replyNumbers + 1;
       post.replies.unshift(replySent);
       return setReplies([...post.replies]);
     }
@@ -45,7 +46,7 @@ export default function ShowPostScreen({ route, navigation }) {
           style={styles.replyInput}
         />
         <Pressable style={styles.button} onPress={handleReplySending}>
-          <Text style={styles.buttonText}>Postar</Text>
+          <Text style={styles.buttonText}>Enviar</Text>
         </Pressable>
       </View>
 
@@ -74,7 +75,7 @@ const styles = StyleSheet.create({
     padding: 10,
     paddingHorizontal: 20,
     borderRadius: 50,
-    width: 90,
+    width: 85,
     marginLeft: 10
   },
   buttonText: {

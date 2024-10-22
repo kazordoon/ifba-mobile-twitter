@@ -18,7 +18,6 @@ const Stack = createNativeStackNavigator();
 
 // TODO: Excluir postagem
 // TODO: Buscar postagem
-// TODO: Curtir e descurtir
 
 export default function App() {
   return (
