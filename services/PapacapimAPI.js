@@ -127,4 +127,44 @@ export default class PapacapimAPI {
     const { statusCode } = await HTTP.request({ URL: `${API_BASE_URL}posts`, method: 'POST', body: { post: { message } }, authToken });
     return statusCode;
   }
+
+  /**
+   *
+   * @param {number} postID
+   */
+  static async likePost(postID) {
+    const authToken = await AsyncStorage.getItem('token');
+    const { statusCode } = await HTTP.request({ URL: `${API_BASE_URL}posts/${postID}/likes`, method: 'POST', authToken });
+    return statusCode;
+  }
+
+  /**
+   *
+   * @param {number} postID
+   */
+  static async dislikePost(postID) {
+    const authToken = await AsyncStorage.getItem('token');
+    const { statusCode } = await HTTP.request({ URL: `${API_BASE_URL}posts/${postID}/likes/1`, method: 'DELETE', authToken });
+    return statusCode;
+  }
+
+  /**
+   *
+   * @param {number} postID
+   */
+  static async getPostLikes(postID) {
+    const authToken = await AsyncStorage.getItem('token');
+    const { response: likes } = await HTTP.request({ URL: `${API_BASE_URL}posts/${postID}/likes`, method: 'GET', authToken });
+    return likes;
+  }
+
+  /**
+   *
+   * @param {number} postID
+   */
+    static async getPostReplies(postID) {
+      const authToken = await AsyncStorage.getItem('token');
+      const { response: replies } = await HTTP.request({ URL: `${API_BASE_URL}posts/${postID}/replies`, method: 'GET', authToken });
+      return replies;
+    }
 }

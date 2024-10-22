@@ -29,11 +29,11 @@ export default function Post({ post, navigation }) {
           <View style={styles.footer}>
             <View style={styles.icon}>
               <FontAwesome6 name={'comment'} size={22} color="gray" />
-              <Text style={{ fontSize: 12, color: 'gray' }}> 5 </Text>
+              <Text style={{ fontSize: 12, color: 'gray' }}> {post.likes} </Text>
             </View>
             <View style={styles.icon}>
               <FontAwesome name="heart-o" size={22} color="gray" />
-              <Text style={{ fontSize: 12, color: 'gray' }}> 5 </Text>
+              <Text style={{ fontSize: 12, color: 'gray' }}> {post.replies} </Text>
             </View>
           </View>
         </View>

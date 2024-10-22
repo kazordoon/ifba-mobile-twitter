@@ -9,7 +9,14 @@ export default function FeedScreen({ navigation }) {
   const [posts, setPosts] = useState([]);
 
   async function handlePostsLoading() {
-    const newPosts = await PapacapimAPI.getPosts(pageNumber);
+    let newPosts = await PapacapimAPI.getPosts(pageNumber);
+
+    const postsLikesAndRepliesPromises = newPosts.map(async (post) => {
+      post.likes = (await PapacapimAPI.getPostLikes(post.id)).length;
+      post.replies = (await PapacapimAPI.getPostReplies(post.id)).length;
+    });
+
+    await Promise.all(postsLikesAndRepliesPromises);
     setPageNumber(pageNumber + 1);
     setPosts([...posts, ...newPosts]);
   }
@@ -27,9 +34,9 @@ export default function FeedScreen({ navigation }) {
       >
         Criar postagem
       </Button>
-      {posts.map((post) => (
-        <Post key={post.id} navigation={navigation} post={post}></Post>
-      ))}
+      {posts.map((post) => {
+        return <Post key={post.id} navigation={navigation} post={post}></Post>;
+      })}
       <Button onPress={handlePostsLoading} title="Carregar mais posts">
         Carregar mais posts
       </Button>
