@@ -18,7 +18,7 @@ export default function SearchUserScreen({ navigation }) {
   async function handleProfileNavigation(user) {
     const ownUsername = await AsyncStorage.getItem('username');
     if (user.login.toLowerCase() === ownUsername)
-      return navigation.navigate('UpdateUserData');
+      return navigation.navigate('OwnProfile');
 
     return navigation.navigate('OtherUserProfile', {
       username: user.login
