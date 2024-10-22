@@ -21,14 +21,17 @@ export default function OwnProfileScreen({ navigation }) {
   const [followers, setFollowers] = useState([]);
   const [followersQuantity, setFollowersQuantity] = useState(0);
 
-  async function handleProfileLoading() {
+  async function loadProfileData() {
     const username = await AsyncStorage.getItem('username');
     setUser(await PapacapimAPI.findUserByLogin(username));
 
     const userFollowers = await PapacapimAPI.getUserFollowers(username);
     setFollowers(userFollowers);
     setFollowersQuantity(userFollowers.length);
+  }
 
+  async function loadProfilePosts() {
+    const username = await AsyncStorage.getItem('username');
     const posts = await PapacapimAPI.getPostsFromUser(username, pageNumber);
     const postsLikesAndRepliesPromises = posts.map(async (post) => {
       const likes = await PapacapimAPI.getPostLikes(post.id);
@@ -44,6 +47,11 @@ export default function OwnProfileScreen({ navigation }) {
 
     setPageNumber(pageNumber + 1);
     setUserPosts([...userPosts, ...posts]);
+  }
+
+  async function handleProfileLoading() {
+    await loadProfileData();
+    await loadProfilePosts();
   }
 
   useEffect(() => {
@@ -86,7 +94,7 @@ export default function OwnProfileScreen({ navigation }) {
         ))}
       </ScrollView>
 
-      <Button onPress={handleProfileLoading} title="Carregar mais posts">
+      <Button onPress={loadProfilePosts} title="Carregar mais posts">
         Carregar mais posts
       </Button>
     </View>

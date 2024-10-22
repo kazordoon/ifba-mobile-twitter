@@ -13,7 +13,7 @@ export default function FollowersScreen({ navigation, route }) {
   async function handleProfileNavigation(follower) {
     const ownUsername = await AsyncStorage.getItem('username');
     if (follower.follower_login.toLowerCase() === ownUsername)
-      return navigation.navigate('UpdateUserData');
+      return navigation.navigate('OwnProfile');
 
     navigation.navigate('OtherUserProfile', {
       username: follower.follower_login
