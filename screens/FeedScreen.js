@@ -13,7 +13,7 @@ export default function FeedScreen({ navigation }) {
 
     const postsLikesAndRepliesPromises = newPosts.map(async (post) => {
       const likes = await PapacapimAPI.getPostLikes(post.id);
-      const replies = await PapacapimAPI.getPostReplies(post.id)
+      const replies = await PapacapimAPI.getPostReplies(post.id);
 
       post.likes = likes;
       post.replies = replies;

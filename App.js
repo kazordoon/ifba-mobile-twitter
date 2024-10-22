@@ -13,6 +13,7 @@ import OtherUserProfileScreen from './screens/OtherUserProfileScreen';
 import FollowersScreen from './screens/FollowersScreen';
 import SearchUserScreen from './screens/SearchUserScreen';
 import ShowPostScreen from './screens/ShowPostScreen';
+import OwnProfileScreen from './screens/OwnProfileScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -51,7 +52,7 @@ export default function App() {
                 }}
               >
                 <Pressable
-                  onPress={() => navigation.navigate('UpdateUserData')}
+                  onPress={() => navigation.navigate('OwnProfile')}
                 >
                   <Image
                     style={styles.userIcon}
@@ -84,6 +85,11 @@ export default function App() {
           name="ShowPost"
           options={{ title: 'Exibir postagem' }}
           component={ShowPostScreen}
+        />
+        <Stack.Screen
+          name="OwnProfile"
+          options={{ title: 'Seu perfil' }}
+          component={OwnProfileScreen}
         />
         <Stack.Screen
           name="UpdateUserData"

@@ -175,6 +175,22 @@ export default class PapacapimAPI {
     return post;
   }
 
+    /**
+   *
+   * @param {string} userLogin
+   * @param {number} pageNumber
+   */
+    static async getPostsFromUser(userLogin, pageNumber = 1) {
+      const authToken = await AsyncStorage.getItem('token');
+  
+      const { response: userPosts } = await HTTP.request({
+        URL: `${API_BASE_URL}users/${userLogin}/posts?page=${pageNumber}`,
+        method: 'GET',
+        authToken
+      });
+      return userPosts;
+    }
+
   /**
    *
    * @param {string} message
