@@ -12,8 +12,14 @@ export default function FeedScreen({ navigation }) {
     let newPosts = await PapacapimAPI.getPosts(pageNumber);
 
     const postsLikesAndRepliesPromises = newPosts.map(async (post) => {
-      post.likes = (await PapacapimAPI.getPostLikes(post.id)).length;
-      post.replies = (await PapacapimAPI.getPostReplies(post.id)).length;
+      const likes = await PapacapimAPI.getPostLikes(post.id);
+      const replies = await PapacapimAPI.getPostReplies(post.id)
+
+      post.likes = likes;
+      post.replies = replies;
+
+      post.likeNumbers = likes.length;
+      post.replyNumbers = replies.length;
     });
 
     await Promise.all(postsLikesAndRepliesPromises);

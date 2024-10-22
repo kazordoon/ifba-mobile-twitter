@@ -12,10 +12,10 @@ import CreatePostScreen from './screens/CreatePostScreen';
 import OtherUserProfileScreen from './screens/OtherUserProfileScreen';
 import FollowersScreen from './screens/FollowersScreen';
 import SearchUserScreen from './screens/SearchUserScreen';
+import ShowPostScreen from './screens/ShowPostScreen';
 
 const Stack = createNativeStackNavigator();
 
-// TODO: Responder postagem
 // TODO: Excluir postagem
 // TODO: Buscar postagem
 // TODO: Curtir e descurtir
@@ -80,6 +80,11 @@ export default function App() {
           name="CreatePost"
           options={{ title: 'Criar post' }}
           component={CreatePostScreen}
+        />
+        <Stack.Screen
+          name="ShowPost"
+          options={{ title: 'Exibir postagem' }}
+          component={ShowPostScreen}
         />
         <Stack.Screen
           name="UpdateUserData"

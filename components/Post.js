@@ -20,23 +20,36 @@ export default function Post({ post, navigation }) {
           />
         </Pressable>
 
-        <View style={styles.mainContainer}>
-          <View style={{ flexDirection: 'row' }}>
-            <Text style={styles.name}>@{post.user_login}</Text>
-            <Text style={styles.username}>· {formatDate(post.created_at)}</Text>
-          </View>
-          <Text style={styles.content}>{post.message}</Text>
-          <View style={styles.footer}>
-            <View style={styles.icon}>
-              <FontAwesome6 name={'comment'} size={22} color="gray" />
-              <Text style={{ fontSize: 12, color: 'gray' }}> {post.likes} </Text>
+        <Pressable
+          onPress={() => navigation.navigate('ShowPost', { post })}
+        >
+          <View style={styles.mainContainer}>
+            <View style={{ flexDirection: 'row' }}>
+              <Text style={styles.name}>@{post.user_login}</Text>
+              <Text style={styles.username}>
+                · {formatDate(post.created_at)}
+              </Text>
             </View>
-            <View style={styles.icon}>
-              <FontAwesome name="heart-o" size={22} color="gray" />
-              <Text style={{ fontSize: 12, color: 'gray' }}> {post.replies} </Text>
+            <Text style={styles.content}>{post.message}</Text>
+            <View style={styles.footer}>
+              <View style={styles.icon}>
+                <FontAwesome6 name={'comment'} size={22} color="gray" />
+                <Text style={{ fontSize: 12, color: 'gray' }}>
+                  {' '}
+                  {post.replyNumbers}{' '}
+                </Text>
+              </View>
+              <View style={styles.icon}>
+                <FontAwesome name="heart-o" size={22} color="gray" />
+                <Text style={{ fontSize: 12, color: 'gray' }}>
+                  {' '}
+                  {post.likeNumbers}{' '}
+                </Text>
+              </View>
             </View>
           </View>
-        </View>
+        </Pressable>
+
       </Pressable>
     </View>
   );
