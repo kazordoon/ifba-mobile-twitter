@@ -43,13 +43,12 @@ export default function OwnProfileScreen({ navigation }) {
     await Promise.all(postsLikesAndRepliesPromises);
 
     setPageNumber(pageNumber + 1);
-    console.log(pageNumber);
     setUserPosts([...userPosts, ...posts]);
   }
 
   useEffect(() => {
     handleProfileLoading();
-  }, []);
+  }, [userPosts]);
 
   return (
     <View style={styles.container}>
@@ -83,7 +82,7 @@ export default function OwnProfileScreen({ navigation }) {
 
       <ScrollView style={styles.postsContainer}>
         {userPosts.map((post) => (
-          <Post key={post.id} navigation={navigation} post={post} />
+          <Post key={post.id} navigation={navigation} post={post} isOwnPost={true} />
         ))}
       </ScrollView>
 

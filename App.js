@@ -17,7 +17,6 @@ import OwnProfileScreen from './screens/OwnProfileScreen';
 
 const Stack = createNativeStackNavigator();
 
-// TODO: Excluir postagem
 // TODO: Buscar postagem
 
 export default function App() {

@@ -206,6 +206,20 @@ export default class PapacapimAPI {
     return statusCode;
   }
 
+    /**
+   *
+   * @param {string} postID
+   */
+    static async deletePost(postID) {
+      const authToken = await AsyncStorage.getItem('token');
+      const { statusCode } = await HTTP.request({
+        URL: `${API_BASE_URL}posts/${postID}`,
+        method: 'DELETE',
+        authToken
+      });
+      return statusCode;
+    }
+
   /**
    *
    * @param {number} postID

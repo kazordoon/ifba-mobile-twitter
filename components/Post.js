@@ -1,12 +1,13 @@
-import { View, Text, Image, StyleSheet, Pressable } from 'react-native';
+import { View, Text, Image, StyleSheet, Pressable, Alert } from 'react-native';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+import AntDesign from '@expo/vector-icons/AntDesign';
 import { useEffect, useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import formatDate from '../utils/formatDate';
 import PapacapimAPI from '../services/PapacapimAPI';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function Post({ post, navigation }) {
+export default function Post({ isOwnPost, post, navigation }) {
   const [hasLiked, setHasLiked] = useState(false);
 
   useEffect(() => {
@@ -35,6 +36,15 @@ export default function Post({ post, navigation }) {
     setHasLiked(!hasLiked);
   }
 
+  async function handlePostDeletion() {
+    const statusCode = await PapacapimAPI.deletePost(post.id);
+    if (statusCode === 204) {
+      return Alert.alert('Postagem deletada com sucesso.');
+    }
+
+    return Alert.alert('Ocorreu um erro ao tentar deletar a postagem.');
+  }
+
   return (
     <View>
       <Pressable style={styles.container}>
@@ -58,6 +68,16 @@ export default function Post({ post, navigation }) {
               <Text style={styles.username}>
                 · {formatDate(post.created_at)}
               </Text>
+              {isOwnPost && (
+                <Pressable onPress={handlePostDeletion}>
+                  <AntDesign
+                    style={{ marginLeft: 40 }}
+                    name="delete"
+                    size={22}
+                    color="red"
+                  />
+                </Pressable>
+              )}
             </View>
             <Text style={styles.content}>{post.message}</Text>
             <View style={styles.footer}>
