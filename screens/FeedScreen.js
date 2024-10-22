@@ -3,26 +3,16 @@ import PapacapimAPI from '../services/PapacapimAPI';
 import Post from '../components/Post';
 import { colors } from '../styles';
 import { useEffect, useState } from 'react';
+import setPostsLikesAndReplies from '../utils/setPostsLikesAndReplies';
 
 export default function FeedScreen({ navigation }) {
   const [pageNumber, setPageNumber] = useState(1);
   const [posts, setPosts] = useState([]);
 
   async function handlePostsLoading() {
-    let newPosts = await PapacapimAPI.getPosts(pageNumber);
+    const newPosts = await PapacapimAPI.getPosts(pageNumber);
+    await setPostsLikesAndReplies(newPosts);
 
-    const postsLikesAndRepliesPromises = newPosts.map(async (post) => {
-      const likes = await PapacapimAPI.getPostLikes(post.id);
-      const replies = await PapacapimAPI.getPostReplies(post.id);
-
-      post.likes = likes;
-      post.replies = replies;
-
-      post.likeNumbers = likes.length;
-      post.replyNumbers = replies.length;
-    });
-
-    await Promise.all(postsLikesAndRepliesPromises);
     setPageNumber(pageNumber + 1);
     setPosts([...posts, ...newPosts]);
   }

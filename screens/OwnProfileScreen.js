@@ -13,6 +13,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { colors } from '../styles';
 import PapacapimAPI from '../services/PapacapimAPI';
 import Post from '../components/Post';
+import setPostsLikesAndReplies from '../utils/setPostsLikesAndReplies';
 
 export default function OwnProfileScreen({ navigation }) {
   const [pageNumber, setPageNumber] = useState(1);
@@ -33,17 +34,7 @@ export default function OwnProfileScreen({ navigation }) {
   async function loadProfilePosts() {
     const username = await AsyncStorage.getItem('username');
     const posts = await PapacapimAPI.getPostsFromUser(username, pageNumber);
-    const postsLikesAndRepliesPromises = posts.map(async (post) => {
-      const likes = await PapacapimAPI.getPostLikes(post.id);
-      const replies = await PapacapimAPI.getPostReplies(post.id);
-
-      post.likes = likes;
-      post.replies = replies;
-
-      post.likeNumbers = likes.length;
-      post.replyNumbers = replies.length;
-    });
-    await Promise.all(postsLikesAndRepliesPromises);
+    await setPostsLikesAndReplies(posts);
 
     setPageNumber(pageNumber + 1);
     setUserPosts([...userPosts, ...posts]);
@@ -90,7 +81,12 @@ export default function OwnProfileScreen({ navigation }) {
 
       <ScrollView style={styles.postsContainer}>
         {userPosts.map((post) => (
-          <Post key={post.id} navigation={navigation} post={post} isOwnPost={true} />
+          <Post
+            key={post.id}
+            navigation={navigation}
+            post={post}
+            isOwnPost={true}
+          />
         ))}
       </ScrollView>
 
